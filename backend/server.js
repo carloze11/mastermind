@@ -8,6 +8,9 @@ const DB = process.env.MONGO_URI;
 
 const app = express();
 
+// middleware
+app.use(express.json());
+
 // Routes
 const gameRoutes = require("./routes/game");
 const userRoutes = require("./routes/user");
