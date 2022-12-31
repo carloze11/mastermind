@@ -1,14 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-// login route
-router.get("/login", (req, res) => {
-    res.send("Login page.");
-});
+// user controller functions
+const { loginUser, signupUser } = require("../controllers/userControllers");
 
-// GET game page
-router.get("/signup", (req, res) => {
-    res.send("Signup page");
-});
+// login page
+router.post("/login", loginUser);
+
+// sign up page
+router.post("/signup", signupUser);
 
 module.exports = router;

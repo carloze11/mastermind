@@ -1,14 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-// GET greeting page
-router.get("/", (req, res) => {
-    res.send("Greeting page greets you.");
-});
+// game controller functions
+const { getHome, getGame } = require("../controllers/gameController");
+
+// GET home page
+router.get("/", getHome);
 
 // GET game page
-router.get("/mastermind", (req, res) => {
-    res.send("Mastermind game page");
-});
+router.get("/mastermind", getGame);
 
 module.exports = router;
