@@ -1,14 +1,14 @@
 import { useState } from "react";
 
-const useSignUp = () => {
+export const useLogin = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
 
-    const signup = async (email, password) => {
+    const login = async (email, password) => {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch("/user/signup", {
+        const response = await fetch("/user/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
@@ -21,10 +21,11 @@ const useSignUp = () => {
             setError(json.error);
         }
         if (response.ok) {
+            // save user's jwt & email to local storage
+            localStorage.setItem("user", JSON.stringify(json));
+
             setIsLoading(false);
         }
     };
-    return { signup, isLoading, error };
+    return login, isLoading, error;
 };
-
-export default useSignUp;
