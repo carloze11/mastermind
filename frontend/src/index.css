@@ -1,13 +1,172 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+}
+
+/* mastermind game */
+.game-title {
+    font-size: 5rem;
+    margin: auto;
+    text-align: center;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.board {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 1100px;
+    height: 500px;
+    background-color: rgb(158, 114, 97);
+    border-radius: 7% / 50%;
+}
+
+.slot-container {
+    display: grid;
+    grid: 1fr / repeat(11, 1fr);
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(158, 114, 97);
+    border: 2px solid rgb(158, 114, 97);
+    margin-top: 25px;
+}
+
+.slot {
+    display: grid;
+    height: 100%;
+    grid: 1fr 100px / 1fr;
+    background-color: rgb(158, 114, 97);
+}
+
+/* .slot:first-child {
+    margin-right: 10px;
+} */
+
+.guess-slot {
+    display: grid;
+    grid: repeat(4, 1fr);
+    justify-content: space-around;
+}
+
+.large-marble {
+    width: 30px;
+    height: 30px;
+    margin: auto;
+    border: 5px solid rgb(138, 91, 77);
+    border-radius: 50%;
+    background-color: rgb(56, 36, 31);
+}
+
+.feedback-slot {
+    display: grid;
+    grid: 1fr 1fr/ 1fr 1fr;
+    justify-content: space-around;
+    padding: 25px 12px 25px 12px;
+}
+
+.small-marble {
+    width: 25px;
+    height: 25px;
+    margin: auto;
+    border-radius: 50%;
+    background-color: rgb(56, 36, 31);
+    border: 5px solid rgb(138, 91, 77);
+}
+
+.large-marble,
+.small-marble:hover {
+    cursor: pointer;
+}
+
+.marble-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    height: 75px;
+    background-color: rgb(56, 36, 31);
+    border-radius: 8% / 50%;
+    margin: 40px 25px 0 25px;
+}
+
+/* marble colors */
+.red-marble {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: darkred;
+    margin: 0 10px;
+}
+
+.purple-marble {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: purple;
+    margin: 0 10px;
+}
+
+.green-marble {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: green;
+    margin: 0 10px;
+}
+
+.yellow-marble {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: yellow;
+    margin: 0 10px;
+}
+
+.blue-marble {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: lightskyblue;
+    margin: 0 10px;
+}
+
+.orange-marble {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: orange;
+    margin: 0 10px;
+}
+
+.pink-marble {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: plum;
+    margin: 0 10px;
+}
+
+.light-green-marble {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: lightgreen;
+    margin: 0 10px;
 }
