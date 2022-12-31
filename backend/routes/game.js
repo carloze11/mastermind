@@ -5,13 +5,10 @@ const router = express.Router();
 // game controller functions
 const { getHome, getGame } = require("../controllers/gameController");
 
-// require auth for all game routes
-router.use(requireAuth);
-
 // GET home page
 router.get("/", getHome);
 
 // GET game page
-router.get("/mastermind", getGame);
+router.get("/mastermind", requireAuth, getGame);
 
 module.exports = router;

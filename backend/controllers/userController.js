@@ -1,4 +1,5 @@
 const User = require("../models/userModel");
+const jwt = require("jsonwebtoken");
 
 // env var
 const SECRET = process.env.SECRET;
@@ -16,6 +17,9 @@ const loginUser = async (req, res) => {
         // use static login method
         const user = await User.login(email, password);
 
+        //create token
+        const token = createToken(user._id);
+
         res.status(200).json({ email, token });
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -30,6 +34,9 @@ const signupUser = async (req, res) => {
     try {
         // create user using model static method
         const user = await User.signup(email, password);
+
+        // create token
+        const token = createToken(user._id);
 
         res.status(200).json({ email, token });
     } catch (error) {
