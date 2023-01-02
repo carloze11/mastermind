@@ -1,20 +1,24 @@
-const Slot = () => {
-    const handleClick = () => {};
+const Slot = ({ id }) => {
+    // create slots for guesses
+    const largeMarbleSlots = [];
+    for (let i = 0; i < 4; i++) {
+        largeMarbleSlots.push(
+            <div className="large-marble" id={`slot-${i}`}></div>
+        );
+    }
+
+    // create slots for feedback
+    const smallMarbleSlots = [];
+    for (let i = 0; i < 4; i++) {
+        smallMarbleSlots.push(
+            <div className="small-marble" id={`feedback-${i}`}></div>
+        );
+    }
 
     return (
-        <div className="slot">
-            <div className="guess-slot">
-                <div className="large-marble" onClick={handleClick}></div>
-                <div className="large-marble" onClick={handleClick}></div>
-                <div className="large-marble" onClick={handleClick}></div>
-                <div className="large-marble" onClick={handleClick}></div>
-            </div>
-            <div className="feedback-slot">
-                <div className="small-marble"></div>
-                <div className="small-marble"></div>
-                <div className="small-marble"></div>
-                <div className="small-marble"></div>
-            </div>
+        <div className="slot" id={`${id}`}>
+            <div className="guess-slot">{largeMarbleSlots}</div>
+            <div className="feedback-slot">{smallMarbleSlots}</div>
         </div>
     );
 };

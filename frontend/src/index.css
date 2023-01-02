@@ -80,9 +80,7 @@ nav {
     display: flex;
     align-items: center;
 }
-nav a {
-    margin-left: 10px;
-}
+
 nav button {
     background: #fff;
     color: var(--primary);
@@ -94,6 +92,7 @@ nav button {
     font-size: 1em;
     margin-left: 10px;
 }
+
 /* auth forms */
 form.signup,
 form.login {
@@ -204,64 +203,64 @@ form.login {
 
 /* marble colors */
 .red-marble {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     background-color: darkred;
     margin: 0 10px;
 }
 
 .purple-marble {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     background-color: purple;
     margin: 0 10px;
 }
 
 .green-marble {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     background-color: green;
     margin: 0 10px;
 }
 
 .yellow-marble {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     background-color: yellow;
     margin: 0 10px;
 }
 
 .blue-marble {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     background-color: lightskyblue;
     margin: 0 10px;
 }
 
 .orange-marble {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     background-color: orange;
     margin: 0 10px;
 }
 
 .pink-marble {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     background-color: plum;
     margin: 0 10px;
 }
 
 .light-green-marble {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     background-color: lightgreen;
     margin: 0 10px;
