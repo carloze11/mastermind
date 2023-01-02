@@ -1,4 +1,4 @@
-const Marbles = ({ handleClick }) => {
+const Marbles = ({ handleClick, isDisabled }) => {
     const colors = [
         "red",
         "purple",
@@ -15,9 +15,10 @@ const Marbles = ({ handleClick }) => {
     for (let i = 0; i < 8; i++) {
         marbles.push(
             <div
-                onClick={handleClick}
                 className={`marble ${colors[i]}-marble`}
                 id={`marble-${i}`}
+                disabled={isDisabled}
+                onClick={isDisabled ? null : handleClick}
             ></div>
         );
     }

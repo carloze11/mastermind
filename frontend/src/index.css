@@ -129,6 +129,21 @@ form.login {
     border-radius: 7% / 50%;
 }
 
+.play-again {
+    position: absolute;
+    font-size: 1.5rem;
+    width: 250px;
+    height: 100px;
+    border-radius: 10px;
+    background-color: white;
+    border: 3px solid var(--primary);
+}
+
+.play-again:hover {
+    cursor: pointer;
+    background-color: whitesmoke;
+}
+
 .slot-container {
     display: grid;
     width: 800px;
