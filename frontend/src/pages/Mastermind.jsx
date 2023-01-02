@@ -1,5 +1,6 @@
 import Slot from "../components/Slot";
 import Marbles from "../components/Marbles";
+import { useIntAPI } from "../hooks/useIntAPI";
 import { useState } from "react";
 
 const Mastermind = () => {
@@ -34,7 +35,7 @@ const Mastermind = () => {
         setSlot(slot + 1);
 
         // reset board
-        if (group === 0 && slot === 3) {
+        if (group === 1 && slot === 3) {
             setGroup(10);
             setSlot(0);
             setIsVisible(true);
@@ -42,11 +43,13 @@ const Mastermind = () => {
         }
 
         // reset marble slot and position
-        if (slot === 3 && group !== 0) {
+        if (slot === 3 && group !== 1) {
             setSlot(0);
             setGroup(group - 1);
         }
     };
+
+    console.log(useIntAPI());
 
     return (
         <>
