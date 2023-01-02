@@ -1,15 +1,72 @@
+/* google font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap");
+
+/* layout */
+:root {
+    --primary: #1aac83;
+    --error: #e7195a;
+    box-sizing: border-box;
+}
 body {
+    background: #f1f1f1;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-        "Helvetica Neue", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-family: "Poppins";
+}
+header {
+    background: #fff;
+}
+header .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+header a {
+    color: #333;
+    text-decoration: none;
+}
+.pages {
+    max-width: 1400px;
+    padding: 20px;
+    margin: 0 auto;
 }
 
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-        monospace;
+/* homepage */
+.home {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 100px;
+}
+
+/* navbar */
+nav {
+    display: flex;
+    align-items: center;
+}
+nav a {
+    margin-left: 10px;
+}
+nav button {
+    background: #fff;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-family: "Poppins";
+    cursor: pointer;
+    font-size: 1em;
+    margin-left: 10px;
+}
+/* auth forms */
+form.signup,
+form.login {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 4px;
 }
 
 /* mastermind game */
@@ -40,12 +97,13 @@ code {
 
 .slot-container {
     display: grid;
+    width: 800px;
+    height: 300px;
     grid: 1fr / repeat(11, 1fr);
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     background-color: rgb(158, 114, 97);
     border: 2px solid rgb(158, 114, 97);
-    margin-top: 25px;
 }
 
 .slot {
@@ -63,6 +121,8 @@ code {
     display: grid;
     grid: repeat(4, 1fr);
     justify-content: space-around;
+    height: 225px;
+    padding: 0 0;
 }
 
 .large-marble {
@@ -77,17 +137,18 @@ code {
 .feedback-slot {
     display: grid;
     grid: 1fr 1fr/ 1fr 1fr;
+    height: 45px;
     justify-content: space-around;
-    padding: 25px 12px 25px 12px;
+    padding: 0 15px;
 }
 
 .small-marble {
-    width: 25px;
-    height: 25px;
+    width: 15px;
+    height: 15px;
     margin: auto;
     border-radius: 50%;
     background-color: rgb(56, 36, 31);
-    border: 5px solid rgb(138, 91, 77);
+    border: 2px solid rgb(138, 91, 77);
 }
 
 .large-marble,
@@ -103,7 +164,7 @@ code {
     height: 75px;
     background-color: rgb(56, 36, 31);
     border-radius: 8% / 50%;
-    margin: 40px 25px 0 25px;
+    margin: 0px 25px 0 25px;
 }
 
 /* marble colors */
@@ -169,4 +230,8 @@ code {
     border-radius: 50%;
     background-color: lightgreen;
     margin: 0 10px;
+}
+
+.marble:hover {
+    cursor: pointer;
 }
