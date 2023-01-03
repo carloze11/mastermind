@@ -1,5 +1,6 @@
 const Marbles = ({ handleClick, isDisabled }) => {
     const colors = [
+        "",
         "red",
         "purple",
         "green",
@@ -12,7 +13,7 @@ const Marbles = ({ handleClick, isDisabled }) => {
 
     const marbles = [];
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 1; i < 9; i++) {
         marbles.push(
             <div
                 className={`marble ${colors[i]}-marble`}

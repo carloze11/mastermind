@@ -16,6 +16,9 @@ const Mastermind = () => {
             await fetchData();
             console.log("Data:", data);
         }
+        let answerColumn = document.getElementById(`group-0`);
+        let answerMarbles = answerColumn.querySelectorAll(".large-marble");
+        // answerMarbles.forEach((marble, i) => )
     };
 
     // create slots for marbles
@@ -24,11 +27,15 @@ const Mastermind = () => {
         slots.push(<Slot id={`group-${i}`} key={i} />);
     }
 
-    const playAgain = () => {
+    const playAgain = async () => {
         const allMarbles = document.querySelectorAll(".large-marble");
         allMarbles.forEach((marble) => {
             marble.className = `large-marble`;
         });
+        if (!isLoading) {
+            await fetchData();
+            console.log("Data:", data);
+        }
         setIsVisible(false);
         setIsDisabled(false);
     };
@@ -70,14 +77,14 @@ const Mastermind = () => {
                     />
                 </div>
                 {isVisible && (
-                    <button className="play-again" onClick={playAgain}>
+                    <button className="play-game" onClick={playAgain}>
                         Play Again?
                     </button>
                 )}
             </div>
-            <div>
-                <button onClick={playGame}>play</button>
-            </div>
+            <button className="play-game" onClick={playGame}>
+                Play
+            </button>
         </>
     );
 };

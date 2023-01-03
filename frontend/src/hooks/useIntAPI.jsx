@@ -9,8 +9,9 @@ export const useIntAPI = () => {
         setIsLoading(true);
         setError(null);
 
+        // Param min and max change due to JSON
         const response = await fetch(
-            "https://www.random.org/integers/?num=4&min=0&max=7&col=4&base=10&format=plain&rnd=new"
+            "https://www.random.org/integers/?num=4&min=1&max=8&col=4&base=10&format=plain&rnd=new"
         );
 
         // Turn API response into a single string
