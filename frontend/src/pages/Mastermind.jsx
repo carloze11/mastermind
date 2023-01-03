@@ -8,6 +8,15 @@ const Mastermind = () => {
     const [slot, setSlot] = useState(0);
     const [isVisible, setIsVisible] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
+    const { fetchData, data, error, isLoading } = useIntAPI();
+
+    // start the game and fetch API data
+    const playGame = async () => {
+        if (!isLoading) {
+            await fetchData();
+            console.log("Data:", data);
+        }
+    };
 
     // create slots for marbles
     const slots = [];
@@ -49,8 +58,6 @@ const Mastermind = () => {
         }
     };
 
-    console.log(useIntAPI());
-
     return (
         <>
             <h1 className="game-title">Mastermind</h1>
@@ -67,6 +74,9 @@ const Mastermind = () => {
                         Play Again?
                     </button>
                 )}
+            </div>
+            <div>
+                <button onClick={playGame}>play</button>
             </div>
         </>
     );
