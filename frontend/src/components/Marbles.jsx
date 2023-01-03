@@ -17,7 +17,7 @@ const Marbles = ({ handleClick, isDisabled }) => {
         marbles.push(
             <div
                 className={`marble ${colors[i]}-marble`}
-                id={`marble-${i}`}
+                id={`${i}`}
                 disabled={isDisabled}
                 onClick={isDisabled ? null : handleClick}
             ></div>

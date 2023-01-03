@@ -17,7 +17,7 @@ export const useIntAPI = () => {
         // Turn API response into a single string
         const text = await response.text();
         const splitText = text.split("\t").join("");
-        const json = JSON.parse(splitText);
+        const json = JSON.parse(splitText).toString();
 
         if (!response.ok) {
             setIsLoading(false);

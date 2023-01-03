@@ -6,9 +6,11 @@ import { useState } from "react";
 const Mastermind = () => {
     const [group, setGroup] = useState(10);
     const [slot, setSlot] = useState(0);
+    const [value, setValue] = useState("");
+    const [color, setColor] = useState("");
     const [isVisible, setIsVisible] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
-    const { fetchData, data, error, isLoading } = useIntAPI();
+    const { fetchData, data, isLoading } = useIntAPI();
 
     // start the game and fetch API data
     const playGame = async () => {
@@ -16,9 +18,16 @@ const Mastermind = () => {
             await fetchData();
             console.log("Data:", data);
         }
-        let answerColumn = document.getElementById(`group-0`);
-        let answerMarbles = answerColumn.querySelectorAll(".large-marble");
-        // answerMarbles.forEach((marble, i) => )
+        if (data) {
+            let answerColumn = document.getElementById(`group-0`);
+            let answerSlots = answerColumn.querySelectorAll(".large-marble");
+            answerSlots.forEach((slot, i) => {
+                let marble = document.getElementById(data[i]);
+                slot.className = `large-marble ${marble.classList.item(1)}`;
+                console.log(marble.classList.item(1));
+                console.log(slot.classList);
+            });
+        }
     };
 
     // create slots for marbles
@@ -42,7 +51,9 @@ const Mastermind = () => {
 
     // set marbles on board
     const handleClick = (e) => {
-        console.log(e.target.id);
+        setValue(e.target.id);
+        setColor(e.target.classList.item(1));
+        console.log(color);
         let currentGroup = document.getElementById(`group-${group}`);
         let currentSlot = currentGroup.querySelector(`#slot-${slot}`);
         currentSlot.className = `large-marble ${e.target.classList.item(1)}`;
