@@ -216,6 +216,26 @@ form.login {
     margin: 0px 25px 0 25px;
 }
 
+/* feedback marbles */
+
+.small-marble.correct-pos {
+    width: 15px;
+    height: 15px;
+    background-color: black;
+}
+
+.small-marble.correct-color {
+    width: 15px;
+    height: 15px;
+    background-color: white;
+}
+
+.small-marble.incorrect {
+    width: 15px;
+    height: 15px;
+    background-color: gray;
+}
+
 /* marble colors */
 .red-marble {
     width: 35px;
