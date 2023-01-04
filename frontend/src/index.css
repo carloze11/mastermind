@@ -301,6 +301,10 @@ form.login {
     margin: 0 10px;
 }
 
+.hidden {
+    display: none;
+}
+
 .marble:hover {
     cursor: pointer;
 }

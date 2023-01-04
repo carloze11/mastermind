@@ -105,8 +105,17 @@ const Mastermind = () => {
         }
     }, [value]);
 
+    // remove hidden class from marbles
+    const removeHidden = () => {
+        for (let i = 1; i < 9; i++) {
+            document.getElementById(`${i}`).classList.remove("hidden");
+        }
+        return;
+    };
+
     // handle marble positions on board
     const handleClick = (e) => {
+        e.target.classList.add("hidden");
         setValue(value + e.target.id);
         setColor(e.target.classList.item(1));
         let currentGroup = document.getElementById(`group-${group}`);
@@ -119,6 +128,7 @@ const Mastermind = () => {
         // reset marble slot and position
         if (slot === 3 && group !== 1) {
             provideFeedback();
+            removeHidden();
             setSlot(0);
             setGroup(group - 1);
         }
@@ -145,6 +155,7 @@ const Mastermind = () => {
                 <div className="board">
                     <div className="slot-container">{slots}</div>
                     <Marbles
+                        data={data}
                         handleClick={handleClick}
                         isDisabled={isDisabled}
                     />

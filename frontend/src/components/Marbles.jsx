@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const Marbles = ({ handleClick, isDisabled }) => {
     const colors = [
         "",
@@ -19,6 +21,7 @@ const Marbles = ({ handleClick, isDisabled }) => {
                 className={`marble ${colors[i]}-marble`}
                 id={`${i}`}
                 disabled={isDisabled}
+                key={i}
                 onClick={isDisabled ? null : handleClick}
             ></div>
         );
