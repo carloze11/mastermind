@@ -15,6 +15,11 @@ const Mastermind = () => {
 
     const { fetchData, data, isLoading } = useIntAPI();
 
+    // rerun fetchData if numbers are not unique
+    const ensureUniqueData = (str) => {
+        return new Set(str).size === str.length;
+    };
+
     // start the game and fetch initial API data
     const playGame = async () => {
         setIsDisabled(false);
@@ -23,6 +28,14 @@ const Mastermind = () => {
             await fetchData();
         }
     };
+
+    useEffect(() => {
+        if (data) {
+            if (!ensureUniqueData(data)) {
+                playGame();
+            }
+        }
+    }, [data]);
 
     // create answer column with api data
     useEffect(() => {
@@ -37,45 +50,21 @@ const Mastermind = () => {
         }
     }, [data]);
 
-    // Reset the board when out of guesses or player wins
-    const playAgain = async () => {
-        const allMarbles = document.querySelectorAll(".large-marble");
-        allMarbles.forEach((marble) => {
-            marble.className = `large-marble`;
-        });
-        const allSmallMarbles = document.querySelectorAll(".small-marble");
-        allSmallMarbles.forEach(
-            (marble) => (marble.className = "small-marble")
-        );
-
-        if (!isLoading) {
-            await fetchData();
-        }
-
-        setIsVisible(false);
-        setIsDisabled(false);
-    };
-
     // provide feedback
     const provideFeedback = () => {
         const valueArr = value.split("");
-
         const correctPos = valueArr.filter((num, i) => num === data[i]).length;
-        console.log(`Number of correct colors in correct pos: ${correctPos}`);
 
         const correctColor = valueArr.filter(
             (num, i) => data.includes(num) && num !== data[i]
         ).length;
-        console.log(`Number of correct color in wrong pos: ${correctColor}`);
 
         const incorrect = valueArr.filter((num) => !data.includes(num)).length;
-        console.log(`Number of incorrect marbles: ${incorrect}`);
 
         let feedbackGroup = document.getElementById(`group-${group}`);
         let feedbackSlots = feedbackGroup.querySelectorAll(".small-marble");
 
-        // randomly select feedback slots for the above variables
-        // for now will just go in order
+        // set classes for styling feedback
         feedbackSlots.forEach((slot, i) => {
             if (slot.id[slot.id.length - 1] <= correctPos) {
                 return (slot.className = "small-marble correct-pos");
@@ -90,22 +79,7 @@ const Mastermind = () => {
         });
     };
 
-    // Check for win after every 4 entries
-    useEffect(() => {
-        if (value.length >= 4) {
-            console.log(`Guess: ${value}`);
-
-            if (value === data) {
-                console.log("You win!");
-                setWin(true);
-            } else {
-                console.log(`you lose: ${data}`);
-            }
-            setValue("");
-        }
-    }, [value]);
-
-    // remove hidden class from marbles
+    // remove hidden class from marbles after each guess
     const removeHidden = () => {
         for (let i = 1; i < 9; i++) {
             document.getElementById(`${i}`).classList.remove("hidden");
@@ -124,22 +98,57 @@ const Mastermind = () => {
 
         // move onto next slot
         setSlot(slot + 1);
+    };
 
-        // reset marble slot and position
-        if (slot === 3 && group !== 1) {
+    // Check for win after every 4 entries &&
+    // reset marble slot and position after each guess
+    useEffect(() => {
+        if (value.length >= 4) {
             provideFeedback();
             removeHidden();
             setSlot(0);
             setGroup(group - 1);
+            console.log(`Guess: ${value}`);
+
+            if (value === data) {
+                console.log("You win!");
+                setWin(true);
+                setIsVisible(true);
+                setIsDisabled(true);
+            }
+            setValue("");
         }
-        // reset positions
-        if (group === 1 && slot === 3) {
+        // reset positions after last attempt and display play again
+        if (group === 1 && slot === 4) {
+            console.log(`you lose: ${data}`);
             provideFeedback();
             setGroup(10);
             setSlot(0);
             setIsVisible(true);
             setIsDisabled(true);
         }
+    }, [value]);
+
+    // Reset the board when game ends
+    const playAgain = async () => {
+        setIsVisible(false);
+        setIsDisabled(false);
+        setGroup(10);
+        setSlot(0);
+        const allMarbles = document.querySelectorAll(".large-marble");
+        allMarbles.forEach((marble) => {
+            marble.className = `large-marble`;
+        });
+        const allSmallMarbles = document.querySelectorAll(".small-marble");
+        allSmallMarbles.forEach(
+            (marble) => (marble.className = "small-marble")
+        );
+
+        if (!isLoading) {
+            await fetchData();
+        }
+
+        removeHidden();
     };
 
     // render slots for marbles
