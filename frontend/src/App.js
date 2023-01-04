@@ -4,6 +4,7 @@ import { useAuthContext } from "./hooks/useAuthContext";
 // pages
 import Home from "./pages/Home";
 import Mastermind from "./pages/Mastermind";
+import Stats from "./pages/Stats";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Navbar from "./components/Navbar";
@@ -36,6 +37,10 @@ function App() {
                         element={
                             !user ? <Signup /> : <Navigate to="/mastermind" />
                         }
+                    />
+                    <Route
+                        path="/stats"
+                        element={user ? <Stats /> : <Navigate to="/login" />}
                     />
                 </Routes>
             </BrowserRouter>

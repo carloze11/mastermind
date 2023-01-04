@@ -6,7 +6,7 @@ export const useIntAPI = () => {
     const [isLoading, setIsLoading] = useState(null);
 
     const fetchData = async () => {
-        setIsLoading(true); // Set isLoading to true before making the API request
+        setIsLoading(true);
         setError(null);
 
         try {

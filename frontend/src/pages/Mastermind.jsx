@@ -7,9 +7,7 @@ const Mastermind = () => {
     const [group, setGroup] = useState(10);
     const [slot, setSlot] = useState(0);
     const [value, setValue] = useState("");
-    const [color, setColor] = useState("");
     const [win, setWin] = useState(null);
-    const [className, setClassName] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
 
@@ -91,7 +89,6 @@ const Mastermind = () => {
     const handleClick = (e) => {
         e.target.classList.add("hidden");
         setValue(value + e.target.id);
-        setColor(e.target.classList.item(1));
         let currentGroup = document.getElementById(`group-${group}`);
         let currentSlot = currentGroup.querySelector(`#slot-${slot}`);
         currentSlot.className = `large-marble ${e.target.classList.item(1)}`;
