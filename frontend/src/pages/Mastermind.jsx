@@ -49,11 +49,41 @@ const Mastermind = () => {
         setIsDisabled(false);
     };
 
+    // provide feedback
+    const provideFeedback = () => {
+        const valueArr = value.split("");
+
+        const correctPos = valueArr.filter((num, i) => num === data[i]).length;
+        console.log(`Number of correct colors in correct pos: ${correctPos}`);
+
+        const correctColor = valueArr.filter(
+            (num, i) => data.includes(num) && num !== data[i]
+        ).length;
+        console.log(`Number of correct color in wrong pos: ${correctColor}`);
+
+        const incorrect = valueArr.filter((num) => !data.includes(num)).length;
+        console.log(`Number of incorrect marbles: ${incorrect}`);
+
+        let feedbackGroup = document.getElementById(`group-${group}`);
+        let feedbackSlots = feedbackGroup.querySelectorAll(".small-marble");
+
+        // randomly select feedback slots for the above variables
+        // for now will just go in order
+        feedbackSlots.forEach((slot, i) => {
+            if (slot.id[slot.id.length - 1] < correctPos) {
+                return (slot.className = "small-marble correct-pos");
+            } else if (slot.id[slot.id.length - 1] < correctColor) {
+                return (slot.className = "small-marble correct-color");
+            } else {
+                return (slot.className = "small-marble incorrect");
+            }
+        });
+    };
+
     // Check for win after every 4 entries
     useEffect(() => {
         if (value.length >= 4) {
             console.log(`Guess: ${value}`);
-            let feeback = document.que;
 
             if (value === data) {
                 console.log("You win!");
@@ -64,6 +94,8 @@ const Mastermind = () => {
             setValue("");
         }
     }, [value]);
+
+    useEffect(() => {});
 
     // handle marble positions on board
     const handleClick = (e) => {
@@ -86,6 +118,7 @@ const Mastermind = () => {
 
         // reset marble slot and position
         if (slot === 3 && group !== 1) {
+            provideFeedback();
             setSlot(0);
             setGroup(group - 1);
         }

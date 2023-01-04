@@ -9,7 +9,7 @@ const Slot = ({ id }) => {
 
     // create slots for feedback
     const smallMarbleSlots = [];
-    for (let i = 0; i < 4; i++) {
+    for (let i = 1; i < 5; i++) {
         smallMarbleSlots.push(
             <div className="small-marble" id={`feedback-${i}`}></div>
         );
