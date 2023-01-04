@@ -18,6 +18,28 @@ const Mastermind = () => {
         return new Set(str).size === str.length;
     };
 
+    // hide api code on start
+    const hideCode = () => {
+        let answerColumn = document.getElementById(`group-0`);
+        let answerSlots = answerColumn.querySelectorAll(".large-marble");
+        answerSlots.forEach((slot, i) => {
+            let marble = document.getElementById(data[i]);
+            slot.className = `large-marble ${marble.classList.item(
+                1
+            )} blackout`;
+        });
+    };
+
+    // show api code in win or loss
+    const showCode = () => {
+        let answerColumn = document.getElementById(`group-0`);
+        let answerSlots = answerColumn.querySelectorAll(".large-marble");
+        answerSlots.forEach((slot, i) => {
+            let marble = document.getElementById(data[i]);
+            slot.classList.remove("blackout");
+        });
+    };
+
     // start the game and fetch initial API data
     const playGame = async () => {
         setIsDisabled(false);
@@ -27,6 +49,7 @@ const Mastermind = () => {
         }
     };
 
+    // rerun api if data is not unique
     useEffect(() => {
         if (data) {
             if (!ensureUniqueData(data)) {
@@ -39,12 +62,7 @@ const Mastermind = () => {
     useEffect(() => {
         if (data) {
             console.log(data);
-            let answerColumn = document.getElementById(`group-0`);
-            let answerSlots = answerColumn.querySelectorAll(".large-marble");
-            answerSlots.forEach((slot, i) => {
-                let marble = document.getElementById(data[i]);
-                slot.className = `large-marble ${marble.classList.item(1)}`;
-            });
+            hideCode();
         }
     }, [data]);
 
@@ -108,6 +126,7 @@ const Mastermind = () => {
             console.log(`Guess: ${value}`);
 
             if (value === data) {
+                showCode();
                 console.log("You win!");
                 setWin(true);
                 setIsVisible(true);
@@ -117,6 +136,7 @@ const Mastermind = () => {
         }
         // reset positions after last attempt and display play again
         if (group === 1 && slot === 4) {
+            showCode();
             console.log(`you lose: ${data}`);
             provideFeedback();
             setGroup(10);

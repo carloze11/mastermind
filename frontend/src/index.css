@@ -308,3 +308,7 @@ form.login {
 .marble:hover {
     cursor: pointer;
 }
+
+.large-marble.blackout {
+    background-color: gray;
+}
