@@ -8,18 +8,23 @@ const Mastermind = () => {
     const [slot, setSlot] = useState(0);
     const [value, setValue] = useState("");
     const [color, setColor] = useState("");
-    const [data, setData] = useState(null);
     const [win, setWin] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
-    const [isDisabled, setIsDisabled] = useState(false);
-    const [render, setRender] = useState(null);
-    const { fetchData, isLoading } = useIntAPI();
+    const [isDisabled, setIsDisabled] = useState(true);
 
-    // start the game and fetch API data
+    const { fetchData, data, isLoading } = useIntAPI();
+
+    // start the game and fetch initial API data
     const playGame = async () => {
+        setIsDisabled(false);
+
         if (!isLoading) {
-            setData(await fetchData());
+            await fetchData();
         }
+    };
+
+    // create answer column with api data
+    useEffect(() => {
         if (data) {
             console.log(data);
             let answerColumn = document.getElementById(`group-0`);
@@ -28,17 +33,10 @@ const Mastermind = () => {
                 let marble = document.getElementById(data[i]);
                 slot.className = `large-marble ${marble.classList.item(1)}`;
             });
-        } else {
-            console.log("nothing");
         }
-    };
+    }, [data]);
 
-    // create slots for marbles
-    const slots = [];
-    for (let i = 0; i < 11; i++) {
-        slots.push(<Slot id={`group-${i}`} key={i} />);
-    }
-
+    // Reset the board when out of guesses or player wins
     const playAgain = async () => {
         const allMarbles = document.querySelectorAll(".large-marble");
         allMarbles.forEach((marble) => {
@@ -46,15 +44,17 @@ const Mastermind = () => {
         });
         if (!isLoading) {
             await fetchData();
-            console.log("Data:", data);
         }
         setIsVisible(false);
         setIsDisabled(false);
     };
 
+    // Check for win after every 4 entries
     useEffect(() => {
         if (value.length >= 4) {
-            console.log(`Current guess: ${value ? value : "No guess yet..."}`);
+            console.log(`Guess: ${value}`);
+            let feeback = document.que;
+
             if (value === data) {
                 console.log("You win!");
                 setWin(true);
@@ -65,7 +65,7 @@ const Mastermind = () => {
         }
     }, [value]);
 
-    // set marbles on board
+    // handle marble positions on board
     const handleClick = (e) => {
         setValue(value + e.target.id);
         setColor(e.target.classList.item(1));
@@ -76,7 +76,7 @@ const Mastermind = () => {
         // move onto next slot
         setSlot(slot + 1);
 
-        // reset board
+        // reset positions
         if (group === 1 && slot === 3) {
             setGroup(10);
             setSlot(0);
@@ -90,6 +90,12 @@ const Mastermind = () => {
             setGroup(group - 1);
         }
     };
+
+    // render slots for marbles
+    const slots = [];
+    for (let i = 0; i < 11; i++) {
+        slots.push(<Slot id={`group-${i}`} key={i} />);
+    }
 
     return (
         <>
