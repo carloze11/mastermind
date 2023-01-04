@@ -9,6 +9,7 @@ const Mastermind = () => {
     const [value, setValue] = useState("");
     const [color, setColor] = useState("");
     const [win, setWin] = useState(null);
+    const [className, setClassName] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
 
@@ -42,9 +43,15 @@ const Mastermind = () => {
         allMarbles.forEach((marble) => {
             marble.className = `large-marble`;
         });
+        const allSmallMarbles = document.querySelectorAll(".small-marble");
+        allSmallMarbles.forEach(
+            (marble) => (marble.className = "small-marble")
+        );
+
         if (!isLoading) {
             await fetchData();
         }
+
         setIsVisible(false);
         setIsDisabled(false);
     };
@@ -98,8 +105,6 @@ const Mastermind = () => {
         }
     }, [value]);
 
-    useEffect(() => {});
-
     // handle marble positions on board
     const handleClick = (e) => {
         setValue(value + e.target.id);
@@ -111,19 +116,19 @@ const Mastermind = () => {
         // move onto next slot
         setSlot(slot + 1);
 
-        // reset positions
-        if (group === 1 && slot === 3) {
-            setGroup(10);
-            setSlot(0);
-            setIsVisible(true);
-            setIsDisabled(true);
-        }
-
         // reset marble slot and position
         if (slot === 3 && group !== 1) {
             provideFeedback();
             setSlot(0);
             setGroup(group - 1);
+        }
+        // reset positions
+        if (group === 1 && slot === 3) {
+            provideFeedback();
+            setGroup(10);
+            setSlot(0);
+            setIsVisible(true);
+            setIsDisabled(true);
         }
     };
 
