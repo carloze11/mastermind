@@ -3,10 +3,9 @@ import { useState } from "react";
 export const useIntAPI = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
-    const [data, setData] = useState(null);
 
     const fetchData = async () => {
-        setIsLoading(true);
+        setIsLoading(true); // Set isLoading to true before making the API request
         setError(null);
 
         // Param min and max change due to JSON
@@ -25,13 +24,9 @@ export const useIntAPI = () => {
         }
 
         if (response.ok) {
-            setData(json);
-            setIsLoading(false);
+            return json;
         }
-
-        setError(error);
-        setIsLoading(false);
     };
 
-    return { fetchData, data, error, isLoading };
+    return { fetchData, error, isLoading, setIsLoading };
 };

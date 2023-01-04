@@ -1,32 +1,35 @@
 import Slot from "../components/Slot";
 import Marbles from "../components/Marbles";
 import { useIntAPI } from "../hooks/useIntAPI";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Mastermind = () => {
     const [group, setGroup] = useState(10);
     const [slot, setSlot] = useState(0);
     const [value, setValue] = useState("");
     const [color, setColor] = useState("");
+    const [data, setData] = useState(null);
+    const [win, setWin] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
-    const { fetchData, data, isLoading } = useIntAPI();
+    const [render, setRender] = useState(null);
+    const { fetchData, isLoading } = useIntAPI();
 
     // start the game and fetch API data
     const playGame = async () => {
         if (!isLoading) {
-            await fetchData();
-            console.log("Data:", data);
+            setData(await fetchData());
         }
         if (data) {
+            console.log(data);
             let answerColumn = document.getElementById(`group-0`);
             let answerSlots = answerColumn.querySelectorAll(".large-marble");
             answerSlots.forEach((slot, i) => {
                 let marble = document.getElementById(data[i]);
                 slot.className = `large-marble ${marble.classList.item(1)}`;
-                console.log(marble.classList.item(1));
-                console.log(slot.classList);
             });
+        } else {
+            console.log("nothing");
         }
     };
 
@@ -49,11 +52,23 @@ const Mastermind = () => {
         setIsDisabled(false);
     };
 
+    useEffect(() => {
+        if (value.length >= 4) {
+            console.log(`Current guess: ${value ? value : "No guess yet..."}`);
+            if (value === data) {
+                console.log("You win!");
+                setWin(true);
+            } else {
+                console.log(`you lose: ${data}`);
+            }
+            setValue("");
+        }
+    }, [value]);
+
     // set marbles on board
     const handleClick = (e) => {
-        setValue(e.target.id);
+        setValue(value + e.target.id);
         setColor(e.target.classList.item(1));
-        console.log(color);
         let currentGroup = document.getElementById(`group-${group}`);
         let currentSlot = currentGroup.querySelector(`#slot-${slot}`);
         currentSlot.className = `large-marble ${e.target.classList.item(1)}`;
