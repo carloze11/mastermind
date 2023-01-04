@@ -70,9 +70,12 @@ const Mastermind = () => {
         // randomly select feedback slots for the above variables
         // for now will just go in order
         feedbackSlots.forEach((slot, i) => {
-            if (slot.id[slot.id.length - 1] < correctPos) {
+            if (slot.id[slot.id.length - 1] <= correctPos) {
                 return (slot.className = "small-marble correct-pos");
-            } else if (slot.id[slot.id.length - 1] < correctColor) {
+            } else if (
+                slot.id[slot.id.length - 1] <=
+                correctColor + correctPos
+            ) {
                 return (slot.className = "small-marble correct-color");
             } else {
                 return (slot.className = "small-marble incorrect");
