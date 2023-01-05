@@ -1,5 +1,6 @@
 import Slot from "../components/Slot";
 import Marbles from "../components/Marbles";
+import GameRules from "../components/GameRules";
 import { useIntAPI } from "../hooks/useIntAPI";
 import { useState, useEffect } from "react";
 
@@ -10,8 +11,18 @@ const Mastermind = () => {
     const [win, setWin] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
+    const [showGameRules, setShowGameRules] = useState(false);
 
     const { fetchData, data, isLoading } = useIntAPI();
+
+    // display game rules
+    const gameRules = () => {
+        if (!showGameRules) {
+            setShowGameRules(true);
+        } else {
+            setShowGameRules(false);
+        }
+    };
 
     // rerun fetchData if numbers are not unique
     const ensureUniqueData = (str) => {
@@ -43,6 +54,7 @@ const Mastermind = () => {
     // start the game and fetch initial API data
     const playGame = async () => {
         setIsDisabled(false);
+        setShowGameRules(false);
 
         if (!isLoading) {
             await fetchData();
@@ -89,9 +101,10 @@ const Mastermind = () => {
                 correctColor + correctPos
             ) {
                 return (slot.className = "small-marble correct-color");
-            } else {
-                return (slot.className = "small-marble incorrect");
             }
+            // else {
+            //     return (slot.className = "small-marble incorrect");
+            // }
         });
     };
 
@@ -178,6 +191,15 @@ const Mastermind = () => {
         <>
             <h1 className="game-title">Mastermind</h1>
             <div className="game-container">
+                <div>
+                    <button className="play-game btn" onClick={playGame}>
+                        Play
+                    </button>
+                    <button className="how-to-btn btn" onClick={gameRules}>
+                        Rules
+                    </button>
+                </div>
+                {showGameRules && <GameRules gameRules={gameRules} />}
                 <div className="board">
                     <div className="slot-container">{slots}</div>
                     <Marbles
@@ -187,14 +209,11 @@ const Mastermind = () => {
                     />
                 </div>
                 {isVisible && (
-                    <button className="play-game" onClick={playAgain}>
-                        Play Again?
+                    <button className="play-again btn" onClick={playAgain}>
+                        Play <br /> Again?
                     </button>
                 )}
             </div>
-            <button className="play-game" onClick={playGame}>
-                Play
-            </button>
         </>
     );
 };
