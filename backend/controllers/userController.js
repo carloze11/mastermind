@@ -44,4 +44,20 @@ const signupUser = async (req, res) => {
     }
 };
 
-module.exports = { loginUser, signupUser };
+// GET user stats
+const getStats = async (req, res) => {
+    try {
+        const user = await User.findOne({}).lean();
+        const stats = {
+            email: user.email,
+            wins: user.wins,
+            losses: user.losses,
+            joined: user.createdAt,
+        };
+        res.status(200).json(stats);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+module.exports = { loginUser, signupUser, getStats };
