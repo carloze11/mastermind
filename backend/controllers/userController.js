@@ -60,4 +60,30 @@ const getStats = async (req, res) => {
     }
 };
 
-module.exports = { loginUser, signupUser, getStats };
+// PUT user stats
+const updateStats = async (req, res) => {
+    try {
+        let update = {};
+
+        if (req.body.result === "win") {
+            update = { $inc: { wins: 1 } };
+        } else if (req.body.result === "loss") {
+            update = { $inc: { losses: 1 } };
+        }
+
+        const user = await User.findOneAndUpdate({}, update, {
+            returnOriginal: false,
+        });
+        const stats = {
+            email: user.email,
+            wins: user.wins,
+            losses: user.losses,
+            joined: user.createdAt,
+        };
+        res.status(200).json(stats);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+module.exports = { loginUser, signupUser, getStats, updateStats };
