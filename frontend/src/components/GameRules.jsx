@@ -1,4 +1,4 @@
-const GameRules = ({ gameRules }) => {
+const GameRules = ({ viewGameRules }) => {
     return (
         <div className="game-rules">
             <h1>Game Rules</h1>
@@ -40,7 +40,7 @@ const GameRules = ({ gameRules }) => {
                 </li>
                 <li>Good luck!</li>
             </ul>
-            <button className="btn" onClick={gameRules}>
+            <button className="btn" onClick={viewGameRules}>
                 Close
             </button>
         </div>

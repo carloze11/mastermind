@@ -1,6 +1,7 @@
 import Slot from "../components/Slot";
 import Marbles from "../components/Marbles";
 import GameRules from "../components/GameRules";
+import { useUpdateStats } from "../hooks/useUpdateStats";
 import { useIntAPI } from "../hooks/useIntAPI";
 import { useState, useEffect } from "react";
 
@@ -8,15 +9,15 @@ const Mastermind = () => {
     const [group, setGroup] = useState(10);
     const [slot, setSlot] = useState(0);
     const [value, setValue] = useState("");
-    const [win, setWin] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
     const [showGameRules, setShowGameRules] = useState(false);
 
     const { fetchData, data, isLoading } = useIntAPI();
+    const { addResult } = useUpdateStats();
 
     // display game rules
-    const gameRules = () => {
+    const viewGameRules = () => {
         if (!showGameRules) {
             setShowGameRules(true);
         } else {
@@ -139,9 +140,10 @@ const Mastermind = () => {
             console.log(`Guess: ${value}`);
 
             if (value === data) {
+                // confetti here
+                addResult("win");
                 showCode();
                 console.log("You win!");
-                setWin(true);
                 setIsVisible(true);
                 setIsDisabled(true);
             }
@@ -149,6 +151,7 @@ const Mastermind = () => {
         }
         // reset positions after last attempt and display play again
         if (group === 1 && slot === 4) {
+            addResult("loss");
             showCode();
             console.log(`you lose: ${data}`);
             provideFeedback();
@@ -195,11 +198,11 @@ const Mastermind = () => {
                     <button className="play-game btn" onClick={playGame}>
                         Play
                     </button>
-                    <button className="how-to-btn btn" onClick={gameRules}>
+                    <button className="how-to-btn btn" onClick={viewGameRules}>
                         Rules
                     </button>
                 </div>
-                {showGameRules && <GameRules gameRules={gameRules} />}
+                {showGameRules && <GameRules viewGameRules={viewGameRules} />}
                 <div className="board">
                     <div className="slot-container">{slots}</div>
                     <Marbles
