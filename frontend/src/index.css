@@ -343,3 +343,21 @@ form.login {
 .large-marble.blackout {
     background-color: gray;
 }
+
+.rules-black-marble {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 2px solid rgb(56, 36, 31);
+    background-color: black;
+}
+
+.rules-white-marble {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 2px solid rgb(56, 36, 31);
+    background-color: white;
+}

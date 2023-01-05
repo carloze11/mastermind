@@ -9,7 +9,7 @@ const GameRules = ({ gameRules }) => {
                     first column, colors hidden.
                 </li>
                 <li>
-                    Click on a marble to place a guess, but{" "}
+                    Click on a marble to place a guess, but&nbsp;
                     <strong>beware</strong> as there are no take-backs!
                 </li>
                 <li>
@@ -23,12 +23,15 @@ const GameRules = ({ gameRules }) => {
                 </li>
                 <ul>
                     <li>
-                        Black marbles indicate that you place a correct marble
-                        in the <strong>correct</strong> position.
+                        <div className="rules-black-marble"></div> marbles
+                        indicate that you place a correct marble in the&nbsp;
+                        <strong>correct</strong> position.
                     </li>
                     <li>
-                        White marbles indicate that you placed a correct marble
-                        in the <strong>wrong</strong> position.
+                        {/* White marbles&nbsp; */}
+                        <div className="rules-white-marble"></div> marbles
+                        indicate that you placed a correct marble in the&nbsp;
+                        <strong>wrong</strong> position.
                     </li>
                 </ul>
                 <li>
