@@ -46,8 +46,9 @@ const signupUser = async (req, res) => {
 
 // GET user stats
 const getStats = async (req, res) => {
+    const user_id = req.user._id;
     try {
-        const user = await User.findOne({}).lean();
+        const user = await User.findById({ _id: user_id });
         const stats = {
             email: user.email,
             wins: user.wins,
@@ -63,6 +64,7 @@ const getStats = async (req, res) => {
 // PUT user stats
 const updateStats = async (req, res) => {
     try {
+        const user_id = req.user._id;
         let update = {};
 
         if (req.body.result === "win") {
@@ -71,7 +73,7 @@ const updateStats = async (req, res) => {
             update = { $inc: { losses: 1 } };
         }
 
-        const user = await User.findOneAndUpdate({}, update, {
+        const user = await User.findByIdAndUpdate({ _id: user_id }, update, {
             returnOriginal: false,
         });
         const stats = {
