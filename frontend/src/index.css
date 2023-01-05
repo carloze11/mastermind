@@ -7,6 +7,11 @@
     --error: #e7195a;
     box-sizing: border-box;
 }
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     background: #f1f1f1;
     margin: 0;
@@ -63,6 +68,7 @@ form button {
     border-radius: 4px;
     cursor: pointer;
 }
+
 div.error {
     padding: 10px;
     background: #ffefef;
@@ -142,6 +148,14 @@ form.login {
     margin-left: 10px;
     min-height: 50px;
     min-width: 120px;
+}
+
+.btn a {
+    color: var(--primary);
+}
+
+.btn:hover a {
+    color: #fff;
 }
 
 .btn.play-again {
