@@ -23,18 +23,31 @@ const Stats = () => {
         fetchData();
     }, []);
 
+    const handleClick = async () => {
+        const response = await fetch("/user/delete", {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
+        const json = await response.json();
+    };
+
     if (!isLoading) {
         const { email, wins, losses, joined } = data;
         const joinedDate = DateTime.fromISO(joined);
         const formattedDate = joinedDate.toFormat("MMMM dd, yyyy");
 
         return (
-            <div>
-                <div>Email: {email}</div>
-                <div>Joined: {formattedDate}</div>
-                <div>Wins: {wins}</div>
-                <div>Losses: {losses}</div>
-                <div></div>
+            <div className="stats">
+                <div>
+                    <div>Email: {email}</div>
+                    <div>Joined: {formattedDate}</div>
+                    <div>Wins: {wins}</div>
+                    <div>Losses: {losses}</div>
+                </div>
+                <button className="btn delete-btn" onClick={handleClick}>
+                    Delete Account
+                </button>
             </div>
         );
     } else {

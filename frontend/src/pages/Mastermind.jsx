@@ -1,9 +1,14 @@
+import { useState, useEffect } from "react";
+
+// hooks
+import { useIntAPI } from "../hooks/useIntAPI";
+import { useUpdateStats } from "../hooks/useUpdateStats";
+
+// pages & components
 import Slot from "../components/Slot";
 import Marbles from "../components/Marbles";
 import GameRules from "../components/GameRules";
-import { useUpdateStats } from "../hooks/useUpdateStats";
-import { useIntAPI } from "../hooks/useIntAPI";
-import { useState, useEffect } from "react";
+import Stats from "./Stats";
 
 const Mastermind = () => {
     const [group, setGroup] = useState(10);
@@ -12,6 +17,7 @@ const Mastermind = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
     const [showGameRules, setShowGameRules] = useState(false);
+    const [showStats, setShowStats] = useState(false);
 
     const { fetchData, data, isLoading } = useIntAPI();
     const { addResult } = useUpdateStats();
