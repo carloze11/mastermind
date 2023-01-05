@@ -24,12 +24,15 @@ const Stats = () => {
     }, []);
 
     const handleClick = async () => {
-        const response = await fetch("/user/delete", {
-            headers: {
-                Authorization: `Bearer ${user.token}`,
-            },
-        });
-        const json = await response.json();
+        try {
+            await fetch("/user/delete", {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            });
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     if (!isLoading) {

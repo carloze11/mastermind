@@ -8,7 +8,6 @@ import { useUpdateStats } from "../hooks/useUpdateStats";
 import Slot from "../components/Slot";
 import Marbles from "../components/Marbles";
 import GameRules from "../components/GameRules";
-import Stats from "./Stats";
 
 const Mastermind = () => {
     const [group, setGroup] = useState(10);
@@ -17,7 +16,6 @@ const Mastermind = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
     const [showGameRules, setShowGameRules] = useState(false);
-    const [showStats, setShowStats] = useState(false);
 
     const { fetchData, data, isLoading } = useIntAPI();
     const { addResult } = useUpdateStats();
@@ -73,6 +71,8 @@ const Mastermind = () => {
         if (data) {
             if (!ensureUniqueData(data)) {
                 playGame();
+            } else {
+                console.log(`Secret Code: ${data}`);
             }
         }
     }, [data]);
@@ -80,7 +80,6 @@ const Mastermind = () => {
     // create answer column with api data
     useEffect(() => {
         if (data) {
-            console.log(data);
             hideCode();
         }
     }, [data]);
@@ -89,10 +88,15 @@ const Mastermind = () => {
     const provideFeedback = () => {
         const valueArr = value.split("");
         const correctPos = valueArr.filter((num, i) => num === data[i]).length;
-
         const correctColor = valueArr.filter(
             (num, i) => data.includes(num) && num !== data[i]
         ).length;
+
+        console.log(
+            `${
+                correctPos + correctColor
+            } correct number(s) and ${correctPos} correct location(s)`
+        );
 
         const incorrect = valueArr.filter((num) => !data.includes(num)).length;
 
@@ -109,9 +113,6 @@ const Mastermind = () => {
             ) {
                 return (slot.className = "small-marble correct-color");
             }
-            // else {
-            //     return (slot.className = "small-marble incorrect");
-            // }
         });
     };
 
@@ -156,7 +157,7 @@ const Mastermind = () => {
             setValue("");
         }
         // reset positions after last attempt and display play again
-        if (group === 1 && slot === 4) {
+        if (group === 1 && slot === 4 && value !== data) {
             addResult("loss");
             showCode();
             console.log(`you lose: ${data}`);
