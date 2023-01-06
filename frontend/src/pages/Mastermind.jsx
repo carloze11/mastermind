@@ -16,6 +16,7 @@ const Mastermind = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
     const [showGameRules, setShowGameRules] = useState(false);
+    const [showTimeAndGuess, setShowTimeAndGuess] = useState(false);
 
     const { fetchData, data, isLoading } = useIntAPI();
     const { addResult } = useUpdateStats();
@@ -40,9 +41,7 @@ const Mastermind = () => {
         let answerSlots = answerColumn.querySelectorAll(".large-marble");
         answerSlots.forEach((slot, i) => {
             let marble = document.getElementById(data[i]);
-            slot.className = `large-marble ${marble.classList.item(
-                1
-            )} blackout`;
+            slot.className = `${marble.classList.item(1)} blackout`;
         });
     };
 
@@ -60,6 +59,7 @@ const Mastermind = () => {
     const playGame = async () => {
         setIsDisabled(false);
         setShowGameRules(false);
+        setShowTimeAndGuess(true);
 
         if (!isLoading) {
             await fetchData();
@@ -130,7 +130,7 @@ const Mastermind = () => {
         setValue(value + e.target.id);
         let currentGroup = document.getElementById(`group-${group}`);
         let currentSlot = currentGroup.querySelector(`#slot-${slot}`);
-        currentSlot.className = `large-marble ${e.target.classList.item(1)}`;
+        currentSlot.className = `hole ${e.target.classList.item(1)}`;
 
         // move onto next slot
         setSlot(slot + 1);
@@ -175,7 +175,7 @@ const Mastermind = () => {
         setIsDisabled(false);
         setGroup(10);
         setSlot(0);
-        const allMarbles = document.querySelectorAll(".large-marble");
+        const allMarbles = document.querySelectorAll(".hole");
         allMarbles.forEach((marble) => {
             marble.className = `large-marble`;
         });
@@ -201,7 +201,7 @@ const Mastermind = () => {
         <>
             <h1 className="game-title">Mastermind</h1>
             <div className="game-container">
-                <div>
+                <div className="play-rules">
                     <button className="play-game btn" onClick={playGame}>
                         Play
                     </button>
@@ -211,6 +211,16 @@ const Mastermind = () => {
                 </div>
                 {showGameRules && <GameRules viewGameRules={viewGameRules} />}
                 <div className="board">
+                    {showTimeAndGuess ? (
+                        <div className="time-guess">
+                            <div className="time">Time: 0:00</div>
+                            <div className="guess">Guesses: 10</div>
+                        </div>
+                    ) : (
+                        <div className="time-guess">
+                            Press&nbsp;<u>Play</u>&nbsp;to Begin
+                        </div>
+                    )}
                     <div className="slot-container">{slots}</div>
                     <Marbles
                         data={data}

@@ -133,7 +133,29 @@ form.login {
     height: 500px;
     background-color: rgb(158, 114, 97);
     border-radius: 7% / 50%;
-    margin-top: 25px;
+    border: 10px solid rgb(56, 36, 31);
+}
+
+.play-rules {
+    margin-bottom: 25px;
+}
+
+.time-guess {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    height: 60px;
+    color: rgb(56, 36, 31);
+}
+
+.time {
+    margin-right: 20px;
+}
+
+.guess {
+    margin-left: 20px;
 }
 
 .btn {
@@ -165,6 +187,7 @@ form.login {
     width: 200px;
     height: 100px;
     border: 5px solid var(--primary);
+    border-radius: 10px;
     font-size: 2rem;
     position: absolute;
 }
@@ -191,20 +214,30 @@ form.login {
 
 .slot-container {
     display: grid;
-    width: 800px;
     height: 300px;
-    grid: 1fr / repeat(11, 1fr);
+    grid: 1fr / repeat(11, minmax(70px, 85px));
     justify-content: space-between;
     align-items: center;
     background-color: rgb(158, 114, 97);
     border: 2px solid rgb(158, 114, 97);
 }
 
+#group-0:first-child {
+    margin-right: 40px;
+}
+
+#group-10:last-child {
+    border-right: none;
+}
+
 .slot {
     display: grid;
-    height: 100%;
+    place-self: center;
+    height: 270px;
     grid: 1fr 100px / 1fr;
     background-color: rgb(158, 114, 97);
+    border-right: 5px solid rgb(138, 91, 77);
+    padding-right: 5px;
 }
 
 /* .slot:first-child {
@@ -216,16 +249,19 @@ form.login {
     grid: repeat(4, 1fr);
     justify-content: space-around;
     height: 225px;
-    padding: 0 0;
 }
 
 .large-marble {
-    width: 30px;
-    height: 30px;
+    width: 45px;
+    height: 45px;
     margin: auto;
     border: 5px solid rgb(138, 91, 77);
     border-radius: 50%;
     background-color: rgb(56, 36, 31);
+}
+
+.hole {
+    margin: auto !important;
 }
 
 .feedback-slot {
@@ -237,8 +273,8 @@ form.login {
 }
 
 .small-marble {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     margin: auto;
     border-radius: 50%;
     background-color: rgb(56, 36, 31);
@@ -258,92 +294,93 @@ form.login {
     height: 75px;
     background-color: rgb(56, 36, 31);
     border-radius: 8% / 50%;
-    margin: 0px 25px 0 25px;
+    margin: 10px 25px 0 25px;
 }
 
 /* feedback marbles */
 
 .small-marble.correct-pos {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     background-color: black;
 }
 
 .small-marble.correct-color {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     background-color: white;
-}
-
-.small-marble.incorrect {
-    width: 15px;
-    height: 15px;
-    background-color: gray;
 }
 
 /* marble colors */
 .red-marble {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     background-color: darkred;
     margin: 0 10px;
+    background: radial-gradient(circle at 15px 15px, red, #000);
 }
 
 .purple-marble {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     background-color: purple;
     margin: 0 10px;
+    background: radial-gradient(circle at 15px 15px, purple, #000);
 }
 
 .green-marble {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     background-color: green;
     margin: 0 10px;
+    background: radial-gradient(circle at 15px 15px, green, #000);
 }
 
 .yellow-marble {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     background-color: yellow;
     margin: 0 10px;
+    background: radial-gradient(circle at 15px 15px, yellow, #000);
 }
 
 .blue-marble {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
-    background-color: lightskyblue;
     margin: 0 10px;
+    background: radial-gradient(circle at 15px 15px, #5cabff, #000);
 }
 
 .orange-marble {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     background-color: orange;
     margin: 0 10px;
+    background: radial-gradient(circle at 15px 15px, orange, #000);
 }
 
 .pink-marble {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     background-color: plum;
     margin: 0 10px;
+    background: radial-gradient(circle at 15px 15px, plum, #000);
 }
 
 .light-green-marble {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     background-color: lightgreen;
     margin: 0 10px;
+    background: radial-gradient(circle at 15px 15px, lightgreen, #000);
 }
 
 .hidden {
@@ -354,8 +391,10 @@ form.login {
     cursor: pointer;
 }
 
-.large-marble.blackout {
+.blackout {
+    background: gray;
     background-color: gray;
+    background: radial-gradient(circle at 15px 15px, gray, #000);
 }
 
 .rules-black-marble {
