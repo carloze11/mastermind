@@ -28,7 +28,9 @@ const Signup = () => {
                 value={password}
             />
             {/* disabled btn to prevent resubmit */}
-            <button disabled={isLoading}>Sign up</button>
+            <button className="btn" disabled={isLoading}>
+                Sign up
+            </button>
             {error && <div className="error">{error}</div>}
         </form>
     );

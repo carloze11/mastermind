@@ -21,7 +21,7 @@ const Stats = () => {
             setIsLoading(false);
         };
         fetchData();
-    }, []);
+    }, [user.token]);
 
     const handleClick = async () => {
         try {

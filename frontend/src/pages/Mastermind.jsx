@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
+import { useCallback } from "react";
 
 // hooks
 import { useIntAPI } from "../hooks/useIntAPI";
 import { useUpdateStats } from "../hooks/useUpdateStats";
 
-// pages & components
+// components
 import Slot from "../components/Slot";
 import Marbles from "../components/Marbles";
 import GameRules from "../components/GameRules";
+import Countdown from "../components/Countdown";
 
 const Mastermind = () => {
+    // game state
     const [group, setGroup] = useState(10);
     const [slot, setSlot] = useState(0);
     const [value, setValue] = useState("");
@@ -17,7 +20,10 @@ const Mastermind = () => {
     const [isDisabled, setIsDisabled] = useState(true);
     const [showGameRules, setShowGameRules] = useState(false);
     const [showTimeAndGuess, setShowTimeAndGuess] = useState(false);
+    const [time, setTime] = useState(null);
+    const [showCountdown, setCountdown] = useState(false);
 
+    // destructuring hooks
     const { fetchData, data, isLoading } = useIntAPI();
     const { addResult } = useUpdateStats();
 
@@ -41,7 +47,7 @@ const Mastermind = () => {
         let answerSlots = answerColumn.querySelectorAll(".large-marble");
         answerSlots.forEach((slot, i) => {
             let marble = document.getElementById(data[i]);
-            slot.className = `${marble.classList.item(1)} blackout`;
+            slot.className = `hole ${marble.classList.item(1)} blackout`;
         });
     };
 
@@ -50,29 +56,28 @@ const Mastermind = () => {
         let answerColumn = document.getElementById(`group-0`);
         let answerSlots = answerColumn.querySelectorAll(".large-marble");
         answerSlots.forEach((slot, i) => {
-            let marble = document.getElementById(data[i]);
             slot.classList.remove("blackout");
         });
     };
 
     // start the game and fetch initial API data
-    const playGame = async () => {
+    const playGame = useCallback(async () => {
         setIsDisabled(false);
         setShowGameRules(false);
+        setTime(180);
         setShowTimeAndGuess(true);
+        setCountdown(true);
 
         if (!isLoading) {
             await fetchData();
         }
-    };
+    }, [fetchData, isLoading]);
 
     // rerun api if data is not unique
     useEffect(() => {
         if (data) {
             if (!ensureUniqueData(data)) {
                 playGame();
-            } else {
-                console.log(`Secret Code: ${data}`);
             }
         }
     }, [data]);
@@ -81,6 +86,13 @@ const Mastermind = () => {
     useEffect(() => {
         if (data) {
             hideCode();
+        }
+    }, [data]);
+
+    // show the answer in console log for debug
+    useEffect(() => {
+        if (data) {
+            console.log(`Secret Code: ${data}`);
         }
     }, [data]);
 
@@ -97,8 +109,6 @@ const Mastermind = () => {
                 correctPos + correctColor
             } correct number(s) and ${correctPos} correct location(s)`
         );
-
-        const incorrect = valueArr.filter((num) => !data.includes(num)).length;
 
         let feedbackGroup = document.getElementById(`group-${group}`);
         let feedbackSlots = feedbackGroup.querySelectorAll(".small-marble");
@@ -156,8 +166,9 @@ const Mastermind = () => {
             }
             setValue("");
         }
+
         // reset positions after last attempt and display play again
-        if (group === 1 && slot === 4 && value !== data) {
+        if ((group === 1 && slot === 4 && value !== data) || time === 0) {
             addResult("loss");
             showCode();
             console.log(`you lose: ${data}`);
@@ -167,12 +178,13 @@ const Mastermind = () => {
             setIsVisible(true);
             setIsDisabled(true);
         }
-    }, [value]);
+    }, [value, time]);
 
     // Reset the board when game ends
     const playAgain = async () => {
         setIsVisible(false);
         setIsDisabled(false);
+        setTime(180);
         setGroup(10);
         setSlot(0);
         const allMarbles = document.querySelectorAll(".hole");
@@ -213,7 +225,9 @@ const Mastermind = () => {
                 <div className="board">
                     {showTimeAndGuess ? (
                         <div className="time-guess">
-                            <div className="time">Time: 0:00</div>
+                            {showCountdown && (
+                                <Countdown time={time} setTime={setTime} />
+                            )}
                             <div className="guess">Guesses: 10</div>
                         </div>
                     ) : (

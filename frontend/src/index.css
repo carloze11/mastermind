@@ -3,7 +3,9 @@
 
 /* layout */
 :root {
-    --primary: #1aac83;
+    --primary: rgb(56, 36, 31);
+    --wood: rgb(158, 114, 97);
+    --darkwood: rgb(138, 91, 77);
     --error: #e7195a;
     box-sizing: border-box;
 }
@@ -59,14 +61,9 @@ input {
     border-radius: 4px;
     box-sizing: border-box;
 }
-form button {
-    background: var(--primary);
-    border: 0;
-    color: #fff;
-    padding: 10px;
-    font-family: "Poppins";
-    border-radius: 4px;
-    cursor: pointer;
+
+form button.btn {
+    margin: 0;
 }
 
 div.error {
@@ -129,11 +126,14 @@ form.login {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 1100px;
-    height: 500px;
+    min-width: 1100px;
+    width: fit-content;
+    min-height: 500px;
+    height: fit-content;
     background-color: rgb(158, 114, 97);
     border-radius: 7% / 50%;
-    border: 10px solid rgb(56, 36, 31);
+    border: 10px solid var(--primary);
+    padding: 10px 0;
 }
 
 .play-rules {
@@ -151,22 +151,41 @@ form.login {
 }
 
 .time {
-    margin-right: 20px;
+    width: 250px;
+    text-align: center;
+}
+
+.times-up {
+    animation: opacityOn 1s linear infinite;
+}
+
+@keyframes opacityOn {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .guess {
-    margin-left: 20px;
+    width: 250px;
+    text-align: center;
 }
 
 .btn {
-    background: #fff;
+    background: var(--wood);
     color: var(--primary);
     border: 2px solid var(--primary);
     padding: 6px 10px;
     border-radius: 4px;
     font-family: "Poppins";
     cursor: pointer;
-    font-size: 1em;
+    font-size: 1.2em;
+    font-weight: 500;
     margin-left: 10px;
     min-height: 50px;
     min-width: 120px;
@@ -195,7 +214,7 @@ form.login {
 .btn:hover {
     cursor: pointer;
     color: white;
-    background-color: var(--primary);
+    background-color: var(--darkwood);
 }
 
 .game-rules {
@@ -210,16 +229,18 @@ form.login {
     width: 600px;
     background-color: white;
     border: 5px solid var(--primary);
+    z-index: 10;
 }
 
 .slot-container {
     display: grid;
-    height: 300px;
-    grid: 1fr / repeat(11, minmax(70px, 85px));
+    min-height: 300px;
+    height: fit-content;
+    grid: 1fr / repeat(11, minmax(10px, 85px));
     justify-content: space-between;
     align-items: center;
-    background-color: rgb(158, 114, 97);
-    border: 2px solid rgb(158, 114, 97);
+    background-color: var(--wood);
+    border: 2px solid var(--wood);
 }
 
 #group-0:first-child {
@@ -233,10 +254,11 @@ form.login {
 .slot {
     display: grid;
     place-self: center;
-    height: 270px;
-    grid: 1fr 100px / 1fr;
-    background-color: rgb(158, 114, 97);
-    border-right: 5px solid rgb(138, 91, 77);
+    min-height: 270px;
+    height: fit-content;
+    grid: 1fr 0.2 / 1fr;
+    background-color: var(--wood);
+    border-right: 5px solid var(--darkwood);
     padding-right: 5px;
 }
 
@@ -248,27 +270,30 @@ form.login {
     display: grid;
     grid: repeat(4, 1fr);
     justify-content: space-around;
-    height: 225px;
+    min-height: 225px;
+    /* border-right: 5px solid var(--darkwood); */
 }
 
 .large-marble {
     width: 45px;
     height: 45px;
     margin: auto;
-    border: 5px solid rgb(138, 91, 77);
+    border: 5px solid var(--darkwood);
     border-radius: 50%;
-    background-color: rgb(56, 36, 31);
+    background-color: var(--primary);
 }
 
 .hole {
-    margin: auto !important;
+    margin: 3px auto !important;
 }
 
 .feedback-slot {
     display: grid;
-    grid: 1fr 1fr/ 1fr 1fr;
-    height: 45px;
+    grid: repeat(2, minmax(20px, 1fr)) / repeat(2, 1fr);
+    min-height: 45px;
+    height: fit-content;
     justify-content: space-around;
+    /* border-right: 5px solid var(--darkwood); */
     padding: 0 15px;
 }
 
@@ -277,8 +302,8 @@ form.login {
     height: 20px;
     margin: auto;
     border-radius: 50%;
-    background-color: rgb(56, 36, 31);
-    border: 2px solid rgb(138, 91, 77);
+    background-color: var(--primary);
+    border: 2px solid var(--darkwood);
 }
 
 .large-marble,
@@ -292,7 +317,7 @@ form.login {
     justify-content: center;
     width: 500px;
     height: 75px;
-    background-color: rgb(56, 36, 31);
+    background-color: var(--primary);
     border-radius: 8% / 50%;
     margin: 10px 25px 0 25px;
 }
@@ -402,7 +427,7 @@ form.login {
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    border: 2px solid rgb(56, 36, 31);
+    border: 2px solid var(--primary);
     background-color: black;
 }
 
@@ -411,7 +436,7 @@ form.login {
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    border: 2px solid rgb(56, 36, 31);
+    border: 2px solid var(--primary);
     background-color: white;
 }
 
