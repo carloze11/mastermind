@@ -18,6 +18,7 @@ const Mastermind = () => {
     const [value, setValue] = useState("");
     const [isVisible, setIsVisible] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
+    const [showReset, setShowReset] = useState(false);
     const [showGameRules, setShowGameRules] = useState(false);
     const [showTimeAndGuess, setShowTimeAndGuess] = useState(false);
     const [time, setTime] = useState(null);
@@ -62,10 +63,9 @@ const Mastermind = () => {
 
     // start the game and fetch initial API data
     const playGame = useCallback(async () => {
+        setShowReset(true);
         setIsDisabled(false);
-        setShowGameRules(false);
         setTime(180);
-        setGuesses(10);
         setShowTimeAndGuess(true);
 
         if (!isLoading) {
@@ -186,8 +186,10 @@ const Mastermind = () => {
         setIsVisible(false);
         setIsDisabled(false);
         setTime(180);
+        setGuesses(10);
         setGroup(10);
         setSlot(0);
+        setValue("");
         const allMarbles = document.querySelectorAll(".hole");
         allMarbles.forEach((marble) => {
             marble.className = `large-hole`;
@@ -215,12 +217,29 @@ const Mastermind = () => {
             <h1 className="game-title">Mastermind</h1>
             <div className="game-container">
                 <div className="play-rules">
-                    <button className="play-game btn" onClick={playGame}>
-                        Play
-                    </button>
-                    <button className="how-to-btn btn" onClick={viewGameRules}>
-                        Rules
-                    </button>
+                    <div>
+                        {!showReset ? (
+                            <button
+                                className="play-game btn"
+                                onClick={playGame}
+                            >
+                                Play
+                            </button>
+                        ) : (
+                            <button
+                                className="play-game btn"
+                                onClick={playAgain}
+                            >
+                                Reset
+                            </button>
+                        )}
+                        <button
+                            className="how-to-btn btn"
+                            onClick={viewGameRules}
+                        >
+                            Rules
+                        </button>
+                    </div>
                 </div>
                 {showGameRules && <GameRules viewGameRules={viewGameRules} />}
                 <div className="board">
