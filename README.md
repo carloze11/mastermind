@@ -19,7 +19,7 @@
 <h3 align="center">Mastermind</h3>
 
   <p align="center">
-  A Mastermind clone, a code-breaking game originally designed in 1970 by Mordecai Meirowitz.  
+  A <a href="https://en.wikipedia.org/wiki/Mastermind_(board_game)">code-breaking game</a> originally designed in 1970 by Mordecai Meirowitz.  
     <br />
     <a href="https://github.com/carloze11/mastermind"><strong>Explore the docs »</strong></a>
     <br />
@@ -49,7 +49,6 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
