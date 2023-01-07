@@ -38,9 +38,9 @@ const Mastermind = () => {
     };
 
     // rerun fetchData if numbers are not unique
-    const ensureUniqueData = (str) => {
-        return new Set(str).size === str.length;
-    };
+    // const ensureUniqueData = (str) => {
+    //     return new Set(str).size === str.length;
+    // };
 
     // hide api code on start
     const hideCode = () => {
@@ -74,13 +74,13 @@ const Mastermind = () => {
     }, [fetchData, isLoading]);
 
     // rerun api if data is not unique
-    useEffect(() => {
-        if (data) {
-            if (!ensureUniqueData(data)) {
-                playGame();
-            }
-        }
-    }, [data]);
+    // useEffect(() => {
+    //     if (data) {
+    //         if (!ensureUniqueData(data)) {
+    //             playGame();
+    //         }
+    //     }
+    // }, [data]);
 
     // create answer column with api data
     useEffect(() => {
@@ -127,16 +127,16 @@ const Mastermind = () => {
     };
 
     // remove hidden class from marbles after each guess
-    const removeHidden = () => {
-        for (let i = 1; i < 9; i++) {
-            document.getElementById(`${i}`).classList.remove("hidden");
-        }
-        return;
-    };
+    // const removeHidden = () => {
+    //     for (let i = 1; i < 9; i++) {
+    //         document.getElementById(`${i}`).classList.remove("hidden");
+    //     }
+    //     return;
+    // };
 
     // handle marble positions on board
     const handleClick = (e) => {
-        e.target.classList.add("hidden");
+        // e.target.classList.add("hidden");
         setValue(value + e.target.id);
         let currentGroup = document.getElementById(`group-${group}`);
         let currentSlot = currentGroup.querySelector(`#slot-${slot}`);
@@ -151,7 +151,7 @@ const Mastermind = () => {
     useEffect(() => {
         if (value.length >= 4) {
             provideFeedback();
-            removeHidden();
+            // removeHidden();
             setSlot(0);
             setGroup(group - 1);
             setGuesses(guesses - 1);
@@ -203,7 +203,7 @@ const Mastermind = () => {
             await fetchData();
         }
 
-        removeHidden();
+        // removeHidden();
     };
 
     // render slots for marbles
