@@ -199,7 +199,7 @@ Project Link: [https://github.com/carloze11/mastermind](https://github.com/carlo
 [issues-shield]: https://img.shields.io/github/issues/carloze11/mastermind.svg?style=for-the-badge
 [issues-url]: https://github.com/carloze11/mastermind/issues
 [license-shield]: https://img.shields.io/github/license/carloze11/mastermind.svg?style=for-the-badge
-[license-url]: https://github.com/carloze11/mastermind/blob/main/LICENSE.txt
+[license-url]: https://github.com/carloze11/mastermind/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/carlosxestrada
 [project-screenshot]: /frontend/public/mastermind-screenshot.png
