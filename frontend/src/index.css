@@ -171,7 +171,7 @@ form.login {
     }
 }
 
-.guess {
+.guesses {
     width: 250px;
     text-align: center;
 }
@@ -274,7 +274,7 @@ form.login {
     /* border-right: 5px solid var(--darkwood); */
 }
 
-.large-marble {
+.large-hole {
     width: 45px;
     height: 45px;
     margin: auto;
@@ -284,7 +284,7 @@ form.login {
 }
 
 .hole {
-    margin: 3px auto !important;
+    margin: auto !important;
 }
 
 .feedback-slot {
@@ -304,11 +304,6 @@ form.login {
     border-radius: 50%;
     background-color: var(--primary);
     border: 2px solid var(--darkwood);
-}
-
-.large-marble,
-.small-marble:hover {
-    cursor: pointer;
 }
 
 .marble-container {

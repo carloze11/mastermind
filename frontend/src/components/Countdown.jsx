@@ -16,7 +16,7 @@ export default function Countdown({ time, setTime }) {
     const seconds = (time % 60).toString().padStart(2, "0");
 
     return (
-        <div className={time <= 15 ? "time times-up" : "time"}>
+        <div className={time <= 15 && time !== 0 ? "time times-up" : "time"}>
             Time: {mins}:{seconds}
         </div>
     );

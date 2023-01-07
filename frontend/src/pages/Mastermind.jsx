@@ -21,7 +21,7 @@ const Mastermind = () => {
     const [showGameRules, setShowGameRules] = useState(false);
     const [showTimeAndGuess, setShowTimeAndGuess] = useState(false);
     const [time, setTime] = useState(null);
-    const [showCountdown, setCountdown] = useState(false);
+    const [guesses, setGuesses] = useState(10);
 
     // destructuring hooks
     const { fetchData, data, isLoading } = useIntAPI();
@@ -44,7 +44,7 @@ const Mastermind = () => {
     // hide api code on start
     const hideCode = () => {
         let answerColumn = document.getElementById(`group-0`);
-        let answerSlots = answerColumn.querySelectorAll(".large-marble");
+        let answerSlots = answerColumn.querySelectorAll(".large-hole");
         answerSlots.forEach((slot, i) => {
             let marble = document.getElementById(data[i]);
             slot.className = `hole ${marble.classList.item(1)} blackout`;
@@ -54,7 +54,7 @@ const Mastermind = () => {
     // show api code in win or loss
     const showCode = () => {
         let answerColumn = document.getElementById(`group-0`);
-        let answerSlots = answerColumn.querySelectorAll(".large-marble");
+        let answerSlots = answerColumn.querySelectorAll(".large-hole");
         answerSlots.forEach((slot, i) => {
             slot.classList.remove("blackout");
         });
@@ -65,8 +65,8 @@ const Mastermind = () => {
         setIsDisabled(false);
         setShowGameRules(false);
         setTime(180);
+        setGuesses(10);
         setShowTimeAndGuess(true);
-        setCountdown(true);
 
         if (!isLoading) {
             await fetchData();
@@ -154,7 +154,9 @@ const Mastermind = () => {
             removeHidden();
             setSlot(0);
             setGroup(group - 1);
+            setGuesses(guesses - 1);
             console.log(`Guess: ${value}`);
+            console.log(`Guesses left: ${guesses - 1}`);
 
             if (value === data) {
                 // confetti here
@@ -167,14 +169,13 @@ const Mastermind = () => {
             setValue("");
         }
 
-        // reset positions after last attempt and display play again
+        // reset positions after last guess and display play again
         if ((group === 1 && slot === 4 && value !== data) || time === 0) {
             addResult("loss");
             showCode();
             console.log(`you lose: ${data}`);
             provideFeedback();
-            setGroup(10);
-            setSlot(0);
+            setTime(0);
             setIsVisible(true);
             setIsDisabled(true);
         }
@@ -189,7 +190,7 @@ const Mastermind = () => {
         setSlot(0);
         const allMarbles = document.querySelectorAll(".hole");
         allMarbles.forEach((marble) => {
-            marble.className = `large-marble`;
+            marble.className = `large-hole`;
         });
         const allSmallMarbles = document.querySelectorAll(".small-marble");
         allSmallMarbles.forEach(
@@ -225,10 +226,8 @@ const Mastermind = () => {
                 <div className="board">
                     {showTimeAndGuess ? (
                         <div className="time-guess">
-                            {showCountdown && (
-                                <Countdown time={time} setTime={setTime} />
-                            )}
-                            <div className="guess">Guesses: 10</div>
+                            <Countdown time={time} setTime={setTime} />
+                            <div className="guesses">Guesses: {guesses}</div>
                         </div>
                     ) : (
                         <div className="time-guess">
