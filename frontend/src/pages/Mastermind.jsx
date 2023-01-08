@@ -23,6 +23,7 @@ const Mastermind = () => {
     const [showTimeAndGuess, setShowTimeAndGuess] = useState(false);
     const [time, setTime] = useState(null);
     const [guesses, setGuesses] = useState(10);
+    const [winner, setWinner] = useState(null);
 
     // destructuring hooks
     const { fetchData, data, isLoading } = useIntAPI();
@@ -104,11 +105,12 @@ const Mastermind = () => {
 
     // provide feedback
     const provideFeedback = () => {
-        const valueArr = value.split("");
-        const correctPos = valueArr.filter((num, i) => num === data[i]).length;
-        const correctColor = valueArr.filter(
-            (num, i) => data.includes(num) && num !== data[i]
-        ).length;
+        const correctPos = value
+            .split("")
+            .filter((num, i) => num === data[i]).length;
+        const correctColor = data
+            .split("")
+            .filter((num, i) => value.includes(num) && num !== value[i]).length;
 
         console.log(
             `${
@@ -169,6 +171,7 @@ const Mastermind = () => {
 
             if (value === data) {
                 // confetti here
+                setWinner(true);
                 addResult("win");
                 showCode();
                 console.log("You win!");
@@ -194,6 +197,7 @@ const Mastermind = () => {
     const playAgain = async () => {
         setIsVisible(false);
         setIsDisabled(false);
+        setWinner(null);
         setTime(300);
         setGuesses(10);
         setGroup(10);
@@ -269,15 +273,17 @@ const Mastermind = () => {
                         isDisabled={isDisabled}
                     />
                 </div>
-                {isVisible && ({winner ? (<button className="play-again btn" onClick={playAgain}>
-                        Play <br /> Again?
-                    </button>): (<button className="play-again btn" onClick={playAgain}>
-                        Play <br /> Again?
-                    </button>)}
-                    // <button className="play-again btn" onClick={playAgain}>
-                    //     Play <br /> Again?
-                    // </button>
-                )}
+                {isVisible ? (
+                    winner ? (
+                        <button className="play-again btn" onClick={playAgain}>
+                            You win! <br /> Play Again?
+                        </button>
+                    ) : (
+                        <button className="play-again btn" onClick={playAgain}>
+                            You lose. <br /> Try Again?
+                        </button>
+                    )
+                ) : null}
             </div>
         </>
     );
