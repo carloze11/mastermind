@@ -6,6 +6,7 @@
     --primary: rgb(56, 36, 31);
     --wood: rgb(158, 114, 97);
     --darkwood: rgb(138, 91, 77);
+    --darkmode: rgb(1, 22, 39);
     --error: #e7195a;
     box-sizing: border-box;
 }
@@ -19,6 +20,7 @@ body {
     margin: 0;
     font-family: "Poppins";
 }
+
 header {
     background: #fff;
     border-bottom: 5px solid var(--primary);
@@ -31,9 +33,24 @@ header .container {
     align-items: center;
     justify-content: space-between;
 }
+
 header a {
     color: var(--primary);
     text-decoration: none;
+}
+span {
+    font-size: 1.2rem;
+}
+
+nav .icon {
+    background: #fff;
+    color: var(--primary);
+    padding: 0;
+    border: none;
+    font-family: "Poppins";
+    cursor: pointer;
+    font-size: 2rem;
+    margin: 0 10px;
 }
 
 header a:hover {
@@ -66,6 +83,7 @@ input {
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
+    font-size: 1.5rem;
 }
 
 form button.btn {
@@ -105,12 +123,13 @@ nav button {
 /* auth forms */
 form.signup,
 form.login {
-    max-width: 400px;
+    max-width: 500px;
     margin: 100px auto;
     padding: 20px;
     background: #fff;
     border-radius: 5px;
     border: 3px solid var(--primary);
+    font-size: 1.5rem;
 }
 
 /* mastermind game */
@@ -200,7 +219,7 @@ form.login {
     min-width: 120px;
 }
 
-.btn a {
+header .btn a {
     color: var(--primary);
 }
 
@@ -212,11 +231,11 @@ form.login {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 200px;
-    height: 100px;
+    width: 250px;
+    height: 150px;
     border: 5px solid var(--primary);
     border-radius: 10px;
-    font-size: 2rem;
+    font-size: 2.5rem;
     position: absolute;
 }
 
@@ -238,6 +257,7 @@ form.login {
     width: 600px;
     background-color: white;
     border: 5px solid var(--primary);
+    border-radius: 10px;
     z-index: 10;
 }
 
@@ -458,9 +478,82 @@ form.login {
 
 .delete-btn {
     margin-top: 50px;
+    border: 3px solid var(--primary);
 }
 
 .delete-btn:hover {
     background-color: firebrick;
-    border: 2px solid black;
+    border: 5px solid black;
+}
+
+/* dark mode styling */
+.dark-mode {
+    background: var(--darkmode);
+}
+
+.dark-mode header {
+    background: var(--darkmode);
+    border-bottom: 5px solid var(--wood);
+}
+
+.dark-mode .container h1 {
+    color: var(--wood);
+}
+
+.dark-mode .container h1:hover {
+    color: var(--darkwood);
+}
+
+.dark-mode header a:hover {
+    color: var(white);
+}
+
+.dark-mode span {
+    color: var(--wood);
+}
+
+.dark-mode .icon {
+    background-color: var(--darkmode);
+    color: var(--wood);
+}
+
+.dark-mode .login,
+.dark-mode .signup {
+    background: var(--darkmode);
+    border: 3px solid var(--wood);
+    color: var(--wood);
+}
+
+.dark-mode .input {
+    background: var(--darkmode);
+    border-color: var(--wood);
+    border: 3px solid var(--wood);
+    color: var(--primary);
+}
+
+.dark-mode .input:focus {
+    border: 3px solid var(--wood);
+}
+
+.dark-mode input:-webkit-autofill,
+.dark-mode input:-webkit-autofill:hover,
+.dark-mode input:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--wood);
+    -webkit-box-shadow: 0 0 0px 40rem var(--darkmode) inset;
+}
+
+.dark-mode .game-title {
+    color: var(--wood);
+}
+
+.dark-mode .game-rules {
+    color: var(--wood);
+}
+
+.dark-mode .stats {
+    color: var(--wood);
+}
+
+.dark-mode .delete-btn:hover {
+    border: 5px solid gray;
 }

@@ -37,6 +37,9 @@ const Mastermind = () => {
         }
     };
 
+    //**************************************/
+    // ENABLING THIS CODE REMOVES DUPLICATES
+    //**************************************/
     // rerun fetchData if numbers are not unique
     // const ensureUniqueData = (str) => {
     //     return new Set(str).size === str.length;
@@ -65,7 +68,7 @@ const Mastermind = () => {
     const playGame = useCallback(async () => {
         setShowReset(true);
         setIsDisabled(false);
-        setTime(180);
+        setTime(300);
         setShowTimeAndGuess(true);
 
         if (!isLoading) {
@@ -73,6 +76,9 @@ const Mastermind = () => {
         }
     }, [fetchData, isLoading]);
 
+    //**************************************/
+    // ENABLING THIS CODE REMOVES DUPLICATES
+    //**************************************/
     // rerun api if data is not unique
     // useEffect(() => {
     //     if (data) {
@@ -126,6 +132,9 @@ const Mastermind = () => {
         });
     };
 
+    //**************************************/
+    // ENABLING THIS CODE REMOVES DUPLICATES
+    //**************************************/
     // remove hidden class from marbles after each guess
     // const removeHidden = () => {
     //     for (let i = 1; i < 9; i++) {
@@ -136,7 +145,7 @@ const Mastermind = () => {
 
     // handle marble positions on board
     const handleClick = (e) => {
-        // e.target.classList.add("hidden");
+        // e.target.classList.add("hidden"); ***ENABLING THIS CODE REMOVES DUPLICATES***
         setValue(value + e.target.id);
         let currentGroup = document.getElementById(`group-${group}`);
         let currentSlot = currentGroup.querySelector(`#slot-${slot}`);
@@ -151,7 +160,7 @@ const Mastermind = () => {
     useEffect(() => {
         if (value.length >= 4) {
             provideFeedback();
-            // removeHidden();
+            // removeHidden(); ***ENABLING THIS CODE REMOVES DUPLICATES***
             setSlot(0);
             setGroup(group - 1);
             setGuesses(guesses - 1);
@@ -185,7 +194,7 @@ const Mastermind = () => {
     const playAgain = async () => {
         setIsVisible(false);
         setIsDisabled(false);
-        setTime(180);
+        setTime(300);
         setGuesses(10);
         setGroup(10);
         setSlot(0);
@@ -203,7 +212,7 @@ const Mastermind = () => {
             await fetchData();
         }
 
-        // removeHidden();
+        // removeHidden(); ***ENABLING THIS CODE REMOVES DUPLICATES***
     };
 
     // render slots for marbles
@@ -260,10 +269,14 @@ const Mastermind = () => {
                         isDisabled={isDisabled}
                     />
                 </div>
-                {isVisible && (
-                    <button className="play-again btn" onClick={playAgain}>
+                {isVisible && ({winner ? (<button className="play-again btn" onClick={playAgain}>
                         Play <br /> Again?
-                    </button>
+                    </button>): (<button className="play-again btn" onClick={playAgain}>
+                        Play <br /> Again?
+                    </button>)}
+                    // <button className="play-again btn" onClick={playAgain}>
+                    //     Play <br /> Again?
+                    // </button>
                 )}
             </div>
         </>

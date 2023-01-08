@@ -1,12 +1,26 @@
+import { useEffect } from "react";
+import { useState } from "react";
+
 const GameRules = ({ viewGameRules }) => {
+    const [darkMode, setDarkMode] = useState(false);
+
+    const bodyClasses = document.body.classList.item(0);
+
+    useEffect(() => {
+        if (bodyClasses === "dark-mode") {
+            setDarkMode(true);
+        } else {
+            setDarkMode(false);
+        }
+    });
     return (
-        <div className="game-rules">
+        <div className={darkMode ? "dark-mode game-rules" : "game-rules"}>
             <h1>Game Rules</h1>
             <ul>
                 <li>To start the game, click "Play Game"</li>
                 <li>
                     The game will randomly place four colored marbles into the
-                    first column, colors hidden.
+                    first column, colors hidden and duplicates allowed.
                 </li>
                 <li>
                     Click on a marble to place a guess, but&nbsp;
@@ -18,8 +32,8 @@ const GameRules = ({ viewGameRules }) => {
                 </li>
                 <li>If you guessed correctly, CONGRATS! YOU WIN!</li>
                 <li>
-                    If you didn't, don't worry! The game is kind enough to
-                    provide you some feedback as follows:
+                    If not, no worries! The game is kind enough to provide you
+                    some feedback as follows:
                 </li>
                 <ul>
                     <li>
@@ -35,8 +49,8 @@ const GameRules = ({ viewGameRules }) => {
                     </li>
                 </ul>
                 <li>
-                    You have a total of ten guesses to break the code before the
-                    game ends.
+                    You have a total of ten guesses (or until time runs out!) to
+                    break the code before the game ends.
                 </li>
                 <li>Good luck!</li>
             </ul>
