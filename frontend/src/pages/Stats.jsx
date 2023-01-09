@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
+import useDeleteUser from "../hooks/useDeleteUser";
+import useLogout from "../hooks/useLogout";
 
 // pkg to format date
 import { DateTime } from "luxon";
 
 const Stats = () => {
     const { user } = useAuthContext();
+    const { deleteUser } = useDeleteUser();
+    const { logout } = useLogout();
     const [data, setData] = useState(null);
+    const [warning, setWarning] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -24,16 +29,29 @@ const Stats = () => {
     }, [user.token]);
 
     const handleClick = async () => {
-        try {
-            await fetch("/user/delete", {
-                headers: {
-                    Authorization: `Bearer ${user.token}`,
-                },
-            });
-        } catch (error) {
-            console.error(error);
+        if (!warning) {
+            setWarning(true);
+        } else {
+            setWarning(false);
         }
     };
+
+    const confirmClick = async () => {
+        deleteUser();
+        logout();
+    };
+
+    const [darkMode, setDarkMode] = useState(false);
+
+    const bodyClasses = document.body.classList.item(0);
+
+    useEffect(() => {
+        if (bodyClasses === "dark-mode") {
+            setDarkMode(true);
+        } else {
+            setDarkMode(false);
+        }
+    });
 
     if (!isLoading) {
         const { email, wins, losses, joined } = data;
@@ -51,6 +69,30 @@ const Stats = () => {
                 <button className="btn delete-btn" onClick={handleClick}>
                     Delete Account
                 </button>
+                {warning && (
+                    <div
+                        className={darkMode ? ".dark-mode warning" : "warning"}
+                    >
+                        <h5>
+                            WARNING: This action is irreversible! Please confirm
+                            account deletion.
+                        </h5>
+                        <div className="options">
+                            <button
+                                className="btn confirm-btn"
+                                onClick={confirmClick}
+                            >
+                                Confirm
+                            </button>
+                            <button
+                                className="btn cancel-btn"
+                                onClick={handleClick}
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
         );
     } else {
