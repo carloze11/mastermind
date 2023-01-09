@@ -484,6 +484,7 @@ header .btn a {
 
 .warning {
     padding-bottom: 50px;
+    height: 300px;
 }
 .warning h5 {
     color: darkred;
@@ -492,6 +493,7 @@ header .btn a {
 .options {
     justify-self: center;
     align-self: center;
+    height: 75px;
 }
 
 .delete-btn {

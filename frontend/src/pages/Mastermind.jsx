@@ -108,9 +108,9 @@ const Mastermind = () => {
         const correctPos = value
             .split("")
             .filter((num, i) => num === data[i]).length;
-        const correctColor = data
+        const correctColor = value
             .split("")
-            .filter((num, i) => value.includes(num) && num !== value[i]).length;
+            .filter((num, i) => data.includes(num) && num !== data[i]).length;
 
         console.log(
             `${
@@ -172,6 +172,7 @@ const Mastermind = () => {
             if (value === data) {
                 // confetti here
                 setWinner(true);
+                setTime(300);
                 addResult("win");
                 showCode();
                 console.log("You win!");
