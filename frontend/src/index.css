@@ -528,7 +528,7 @@ header .btn a {
     background: var(--darkmode);
     border-color: var(--wood);
     border: 3px solid var(--wood);
-    color: var(--primary);
+    color: var(--wood);
 }
 
 .dark-mode .input:focus {
