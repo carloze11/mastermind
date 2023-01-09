@@ -29,17 +29,18 @@ const loginUser = async (req, res) => {
 // signup user
 const signupUser = async (req, res) => {
     // get email and password from params
-    const { email, password } = req.body;
+    const { email, password, confirmPassword } = req.body;
 
     try {
         // create user using model static method
-        const user = await User.signup(email, password);
+        const user = await User.signup(email, password, confirmPassword);
 
         // create token
         const token = createToken(user._id);
 
         res.status(200).json({ email, token });
     } catch (error) {
+        console.log(error);
         res.status(400).json({ error: error.message });
     }
 };

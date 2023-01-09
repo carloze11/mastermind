@@ -27,16 +27,19 @@ const userSchema = Schema(
 );
 
 // static signup method for user
-userSchema.statics.signup = async function (email, password) {
+userSchema.statics.signup = async function (email, password, confirmPassword) {
     //validation
-    if (!email || !password) {
-        throw Error("All fields must be filled");
+    if (!email || !password || !confirmPassword) {
+        throw Error("All fields must be filled.");
     }
     if (!validator.isEmail(email)) {
-        throw Error("Email is not valid");
+        throw Error("Please provide a valid email address.");
     }
-    if (!validator.isStrongPassword(password)) {
-        throw Error("Password not strong enough");
+    if (!validator.isLength(password, { min: 6 })) {
+        throw Error("Password must be at least 6 characters long.");
+    }
+    if (password !== confirmPassword) {
+        throw Error("Passwords do not match.");
     }
 
     const exists = await this.findOne({ email });
@@ -59,20 +62,20 @@ userSchema.statics.signup = async function (email, password) {
 userSchema.statics.login = async function (email, password) {
     // validation
     if (!email || !password) {
-        throw Error("All fields must be filled");
+        throw Error("All fields must be filled.");
     }
 
     const user = await this.findOne({ email });
 
     if (!user) {
-        throw Error("Incorrect email");
+        throw Error("Email does not exist.");
     }
 
     // compare entered password to bcrypt
     const match = await bcrypt.compare(password, user.password);
 
     if (!match) {
-        throw Error("Incorrect password");
+        throw Error("Incorrect password.");
     }
     return user;
 };
