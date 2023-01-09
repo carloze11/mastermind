@@ -40,7 +40,6 @@ const signupUser = async (req, res) => {
 
         res.status(200).json({ email, token });
     } catch (error) {
-        console.log(error);
         res.status(400).json({ error: error.message });
     }
 };
@@ -58,11 +57,11 @@ const getStats = async (req, res) => {
         };
         res.status(200).json(stats);
     } catch (error) {
-        console.error(error);
+        res.status(400).json({ error: error.message });
     }
 };
 
-// PUT user stats
+// UPDATE user stats
 const updateStats = async (req, res) => {
     try {
         const user_id = req.user._id;
@@ -89,4 +88,16 @@ const updateStats = async (req, res) => {
     }
 };
 
-module.exports = { loginUser, signupUser, getStats, updateStats };
+// DELETE user :(
+const deleteUser = async (req, res) => {
+    try {
+        const user_id = req.user._id;
+
+        await User.findByIdAndDelete({ _id: user_id });
+        res.status(200);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+module.exports = { loginUser, signupUser, getStats, updateStats, deleteUser };

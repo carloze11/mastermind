@@ -8,6 +8,7 @@ const {
     signupUser,
     getStats,
     updateStats,
+    deleteUser,
 } = require("../controllers/userController");
 
 // login page
@@ -19,7 +20,10 @@ router.post("/signup", signupUser);
 // GET user stats
 router.get("/stats", requireAuth, getStats);
 
-// PUT user stats
+// UPDATE user stats
 router.post("/update-stats", requireAuth, updateStats);
+
+// DELETE USER
+router.delete("/delete-user", requireAuth, deleteUser);
 
 module.exports = router;
