@@ -83,6 +83,7 @@ A "Mastermind" clone built using the MERN (MongoDB, Express.js, React, and Node.
 
 ## Getting Started
 
+This project requires <a href="https://nodejs.org/en/">Node.js</a>.
 To get a local copy up and running, follow these next steps.
 
 ### Prerequisites
@@ -135,7 +136,7 @@ To get a local copy up and running, follow these next steps.
 
 ## Roadmap
 
--   [ ] Allow users to delete account
+-   [x] Allow users to delete account
 -   [ ] Change game difficulty
 -   [ ] Allow for 2-player sessions
 -   [ ] Add marble placement sounds

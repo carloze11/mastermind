@@ -3,7 +3,7 @@ const Slot = ({ id }) => {
     const largeMarbleSlots = [];
     for (let i = 0; i < 4; i++) {
         largeMarbleSlots.push(
-            <div className="large-hole hole" id={`slot-${i}`}></div>
+            <div key={i} className="large-hole hole" id={`slot-${i}`}></div>
         );
     }
 
@@ -11,7 +11,7 @@ const Slot = ({ id }) => {
     const smallMarbleSlots = [];
     for (let i = 1; i < 5; i++) {
         smallMarbleSlots.push(
-            <div className="small-marble" id={`feedback-${i}`}></div>
+            <div key={i} className="small-marble" id={`feedback-${i}`}></div>
         );
     }
 
