@@ -13,10 +13,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Routes
-const gameRoutes = require("./routes/game");
 const userRoutes = require("./routes/user");
 
-app.use("/", gameRoutes);
 app.use("/user", userRoutes);
 
 // connect to db
