@@ -105,17 +105,23 @@ const Mastermind = () => {
 
     // provide feedback
     const provideFeedback = () => {
-        const correctPos = value
-            .split("")
-            .filter((num, i) => num === data[i]).length;
-        const correctColor = value
-            .split("")
-            .filter((num, i) => data.includes(num) && num !== data[i]).length;
+        let dataCopy = data.slice().split("");
+        let correctPos = [];
+        let correctColor = [];
+        value.split("").forEach((num, i) => {
+            if (num === dataCopy[i]) {
+                correctPos.push(num);
+                return (dataCopy[i] = "");
+            } else if (dataCopy.includes(num)) {
+                correctColor.push(num);
+                dataCopy[dataCopy.indexOf(num)] = "";
+            }
+        });
 
         console.log(
-            `${
-                correctPos + correctColor
-            } correct number(s) and ${correctPos} correct location(s)`
+            `${correctPos.length + correctColor.length} correct number(s) and ${
+                correctPos.length
+            } correct location(s)`
         );
 
         let feedbackGroup = document.getElementById(`group-${group}`);
@@ -123,11 +129,11 @@ const Mastermind = () => {
 
         // set classes for styling feedback
         feedbackSlots.forEach((slot, i) => {
-            if (slot.id[slot.id.length - 1] <= correctPos) {
+            if (slot.id[slot.id.length - 1] <= correctPos.length) {
                 return (slot.className = "small-marble correct-pos");
             } else if (
                 slot.id[slot.id.length - 1] <=
-                correctColor + correctPos
+                correctColor.length + correctPos.length
             ) {
                 return (slot.className = "small-marble correct-color");
             }
