@@ -1,0 +1,20 @@
+{
+    "name": "mastermind",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+        "build": "echo \"No build specified\" && exit 1",
+        "test": "echo \"No test specified\" && exit 1",
+        "start": "node /backend/server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/carloze11/mastermind.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/carloze11/mastermind/issues"
+    },
+    "homepage": "https://github.com/carloze11/mastermind#readme"
+}
