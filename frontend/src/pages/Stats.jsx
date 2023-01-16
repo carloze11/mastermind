@@ -16,7 +16,7 @@ const Stats = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch("/user/stats", {
+            const response = await fetch("api/user/stats", {
                 headers: {
                     Authorization: `Bearer ${user.token}`,
                 },

@@ -7,7 +7,7 @@ const useDeleteUser = () => {
     const [isLoading, setIsLoading] = useState(null);
 
     const deleteUser = async () => {
-        const response = fetch("/user/delete-user", {
+        const response = fetch("api/user/delete-user", {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${user.token}`,

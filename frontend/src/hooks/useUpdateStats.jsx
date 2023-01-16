@@ -10,7 +10,7 @@ export const useUpdateStats = () => {
         setError(null);
         setIsLoading(true);
 
-        const response = await fetch("/user/update-stats", {
+        const response = await fetch("api/user/update-stats", {
             method: "POST",
             body: JSON.stringify({ result }),
             headers: {
