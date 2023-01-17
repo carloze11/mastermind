@@ -24,7 +24,7 @@
     <a href="https://github.com/carloze11/mastermind"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/carloze11/mastermind">View Demo</a>
+    <a href="https://mastermindcae.netlify.app/">View Demo</a>
     ·
     <a href="https://github.com/carloze11/mastermind/issues">Report Bug</a>
     ·
