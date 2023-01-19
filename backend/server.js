@@ -15,7 +15,7 @@ app.use(express.json());
 // Routes
 const userRoutes = require("./routes/user");
 
-app.use("/user", userRoutes);
+app.use("/api/user", userRoutes);
 
 // connect to db
 mongoose
