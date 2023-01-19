@@ -59,7 +59,7 @@ const Mastermind = () => {
     // show api code in win or loss
     const showCode = () => {
         let answerColumn = document.getElementById(`group-0`);
-        let answerSlots = answerColumn.querySelectorAll(".large-hole");
+        let answerSlots = answerColumn.querySelectorAll(".blackout");
         answerSlots.forEach((slot, i) => {
             slot.classList.remove("blackout");
         });
