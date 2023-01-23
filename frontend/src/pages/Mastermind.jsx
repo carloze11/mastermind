@@ -96,13 +96,6 @@ const Mastermind = () => {
         }
     }, [data]);
 
-    // show the answer in console log for debug
-    useEffect(() => {
-        if (data) {
-            console.log(`Secret Code: ${data}`);
-        }
-    }, [data]);
-
     // provide feedback
     const provideFeedback = () => {
         let dataCopy = data.slice().split("");
@@ -117,12 +110,6 @@ const Mastermind = () => {
                 dataCopy[dataCopy.indexOf(num)] = "";
             }
         });
-
-        console.log(
-            `${correctPos.length + correctColor.length} correct number(s) and ${
-                correctPos.length
-            } correct location(s)`
-        );
 
         let feedbackGroup = document.getElementById(`group-${group}`);
         let feedbackSlots = feedbackGroup.querySelectorAll(".small-marble");
@@ -172,8 +159,6 @@ const Mastermind = () => {
             setSlot(0);
             setGroup(group - 1);
             setGuesses(guesses - 1);
-            console.log(`Guess: ${value}`);
-            console.log(`Guesses left: ${guesses - 1}`);
 
             if (value === data) {
                 // confetti here
@@ -181,7 +166,6 @@ const Mastermind = () => {
                 setTime(300);
                 addResult("win");
                 showCode();
-                console.log("You win!");
                 setIsVisible(true);
                 setIsDisabled(true);
             }
@@ -192,7 +176,6 @@ const Mastermind = () => {
         if ((group === 1 && slot === 4 && value !== data) || time === 0) {
             addResult("loss");
             showCode();
-            console.log(`you lose: ${data}`);
             provideFeedback();
             setTime(0);
             setIsVisible(true);
