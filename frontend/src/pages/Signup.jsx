@@ -41,6 +41,7 @@ const Signup = () => {
             <button className="btn" disabled={isLoading}>
                 Sign up
             </button>
+            {isLoading && <div>Waiting for server...</div>}
             {error && <div className="error">{error}</div>}
         </form>
     );
