@@ -1,4 +1,4 @@
-const Marbles = ({ handleClick, isDisabled }) => {
+const Marbles = ({ handleClick, disableInput }) => {
     const colors = [
         "",
         "red",
@@ -18,9 +18,9 @@ const Marbles = ({ handleClick, isDisabled }) => {
             <div
                 className={`marble ${colors[i]}-marble`}
                 id={`${i}`}
-                disabled={isDisabled}
+                disabled={disableInput}
                 key={i}
-                onClick={isDisabled ? null : handleClick}
+                onClick={disableInput ? null : handleClick}
             ></div>
         );
     }

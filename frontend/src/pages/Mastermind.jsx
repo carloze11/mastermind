@@ -16,8 +16,8 @@ const Mastermind = () => {
     const [group, setGroup] = useState(10);
     const [slot, setSlot] = useState(0);
     const [value, setValue] = useState("");
-    const [isVisible, setIsVisible] = useState(false);
-    const [isDisabled, setIsDisabled] = useState(true);
+    const [disableInput, setDisableInput] = useState(true);
+    const [showPlayAgain, setShowPlayAgain] = useState(false);
     const [showReset, setShowReset] = useState(false);
     const [showGameRules, setShowGameRules] = useState(false);
     const [showTimeAndGuess, setShowTimeAndGuess] = useState(false);
@@ -68,7 +68,7 @@ const Mastermind = () => {
     // start the game and fetch initial API data
     const playGame = useCallback(async () => {
         setShowReset(true);
-        setIsDisabled(false);
+        setDisableInput(false);
         setTime(300);
         setShowTimeAndGuess(true);
 
@@ -105,36 +105,37 @@ const Mastermind = () => {
 
     // provide feedback
     const provideFeedback = () => {
-        let dataCopy = data.slice().split("");
-        let correctPos = [];
-        let correctColor = [];
-        value.split("").forEach((num, i) => {
+        let dataCopy = [...data];
+        let dataToMutate = [...dataCopy];
+        let userGuess = [...value];
+        let correctPosition = 0;
+        let correctColor = 0;
+
+        userGuess.forEach((num, i) => {
+            // Get number of correct marbles in the correct postion
             if (num === dataCopy[i]) {
-                correctPos.push(num);
-                return (dataCopy[i] = "");
-            } else if (dataCopy.includes(num)) {
-                correctColor.push(num);
-                dataCopy[dataCopy.indexOf(num)] = "";
+                correctPosition++;
+            }
+            // Get number of correct marbles in wrong position
+            if (dataToMutate.includes(num)) {
+                correctColor++;
+                dataToMutate.splice(dataToMutate.indexOf(num), 1);
             }
         });
 
         console.log(
-            `${correctPos.length + correctColor.length} correct number(s) and ${
-                correctPos.length
-            } correct location(s)`
+            `${correctColor} correct number(s) and ${correctPosition} correct location(s).`
         );
 
+        // Grab UI elements to display feedback
         let feedbackGroup = document.getElementById(`group-${group}`);
         let feedbackSlots = feedbackGroup.querySelectorAll(".small-marble");
 
-        // set classes for styling feedback
+        // Determines whether element in group has an id less than correctPosition to display correct feedback
         feedbackSlots.forEach((slot, i) => {
-            if (slot.id[slot.id.length - 1] <= correctPos.length) {
+            if (slot.id[slot.id.length - 1] <= correctPosition) {
                 return (slot.className = "small-marble correct-pos");
-            } else if (
-                slot.id[slot.id.length - 1] <=
-                correctColor.length + correctPos.length
-            ) {
+            } else if (slot.id[slot.id.length - 1] <= correctColor) {
                 return (slot.className = "small-marble correct-color");
             }
         });
@@ -176,14 +177,13 @@ const Mastermind = () => {
             console.log(`Guesses left: ${guesses - 1}`);
 
             if (value === data) {
-                // confetti here
                 setWinner(true);
-                setTime(300);
+                setTime(0);
                 addResult("win");
                 showCode();
                 console.log("You win!");
-                setIsVisible(true);
-                setIsDisabled(true);
+                setShowPlayAgain(true);
+                setDisableInput(true);
             }
             setValue("");
         }
@@ -195,15 +195,15 @@ const Mastermind = () => {
             console.log(`you lose: ${data}`);
             provideFeedback();
             setTime(0);
-            setIsVisible(true);
-            setIsDisabled(true);
+            setShowPlayAgain(true);
+            setDisableInput(true);
         }
     }, [value, time]);
 
     // Reset the board when game ends
     const playAgain = async () => {
-        setIsVisible(false);
-        setIsDisabled(false);
+        setShowPlayAgain(false);
+        setDisableInput(false);
         setWinner(null);
         setTime(300);
         setGuesses(10);
@@ -277,10 +277,10 @@ const Mastermind = () => {
                     <Marbles
                         data={data}
                         handleClick={handleClick}
-                        isDisabled={isDisabled}
+                        disableInput={disableInput}
                     />
                 </div>
-                {isVisible ? (
+                {showPlayAgain ? (
                     winner ? (
                         <button className="play-again btn" onClick={playAgain}>
                             You win! <br /> Play Again?
